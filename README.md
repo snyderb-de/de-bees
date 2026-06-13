@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Apiary Ledger of Delaware
 
-## Getting Started
+An illustrated register of Delaware's beekeepers and honey makers — their
+apiaries, varietals, awards, and services, county by county. Built as a
+nineteenth-century naturalist's plate book: every keeper is a numbered *plate*,
+plotted on a cozy isometric map of the state.
 
-First, run the development server:
+🐝 **Live site:** https://snyderb-de.github.io/de-bees/
+
+## What's inside
+
+- **The Register** — every keeper, filterable by county and by what they offer
+  (honey, comb, nucs & queens, classes, pollination, swarm removal).
+- **The Map** — an isometric, tilt-shift survey of the apiaries; each hive box
+  links to a keeper's plate.
+- **Swarms & Services** — a county-organised swarm / cut-out register and
+  pollination listings.
+- **Premiums** — the honours roll from the State Fair and county shows.
+- **Learn** — county clubs, registering your hive with the State Apiarist, and
+  the Delaware nectar calendar.
+- **Get Listed** — a free submission flow for any keeper in the state.
+
+The keeper entries shipped at launch are illustrative samples; Delaware towns,
+counties, varietals, seasons, and the state figures are real. Swap
+`src/lib/keepers.ts` for real submissions as keepers join.
+
+## Design
+
+- **Palette** — green-black printer's ink, sage, and oxblood on foxed paper,
+  with honey used sparingly as gilt. (Deliberately off the cream + terracotta
+  default.)
+- **Type** — Fraunces (display), Newsreader (body), IBM Plex Mono (ledger data).
+- **Signature** — a self-drawing engraved honeybee and the plate/figure register
+  system. Motion respects `prefers-reduced-motion`.
+
+## Stack
+
+- [Next.js 16](https://nextjs.org) (App Router) — static export (`output: "export"`)
+- React 19 · TypeScript · Tailwind CSS v4
+- Zero runtime data dependencies; the map and bee are hand-built inline SVG (no
+  tiles, no API keys).
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev        # http://localhost:3000
+pnpm build      # static export to ./out
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Pushing to `main` builds the static export and publishes it to GitHub Pages via
+`.github/workflows/deploy.yml`. The site is served from `/de-bees`, configured
+through `basePath` in `next.config.ts` (production only, so local dev stays at
+the root).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Roadmap
 
-## Learn More
+- Self-serve keeper accounts (claim & edit your own plate).
+- Idle "roaming bee" cameo — an engraved bee that drifts in, lands, and buzzes
+  off every so often.
+- Reviews and "what's flowing now" live seasonal state.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+An independent project. Not affiliated with the Delaware Beekeepers Association
+or the Delaware Department of Agriculture.

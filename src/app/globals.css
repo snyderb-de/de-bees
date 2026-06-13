@@ -1,26 +1,471 @@
 @import "tailwindcss";
 
+/*
+  THE APIARY LEDGER OF DELAWARE
+  A 19th-century illustrated naturalist register.
+  Palette: green-black printer's ink + sage + oxblood, honey used as gilt,
+  set on foxed (aged, spotted) paper. Deliberately off the cream+terracotta axis.
+*/
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #efe7d3;
+  --paper-2: #e6dabf;
+  --paper-3: #dccba6;
+  --edge: #cdb88f;
+
+  --ink: #1f2e29; /* green-black printer's ink */
+  --ink-soft: #51604f;
+  --ink-faint: #8a9079;
+
+  --honey: #bd831b; /* gilt accent, used sparingly */
+  --honey-bright: #dd9e2c;
+  --oxblood: #7a2e22; /* plate numbers, emphasis rules */
+  --sage: #6e7d5b; /* botanical green */
+
+  --rule: rgba(31, 46, 41, 0.28);
+  --rule-soft: rgba(31, 46, 41, 0.14);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-3: var(--paper-3);
+  --color-edge: var(--edge);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-honey: var(--honey);
+  --color-honey-bright: var(--honey-bright);
+  --color-oxblood: var(--oxblood);
+  --color-sage: var(--sage);
+
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-newsreader);
+  --font-mono: var(--font-plex-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body), Georgia, serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    font-feature-settings: "onum" 1, "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  /* Foxed paper: faint grain + scattered age spots, fixed behind everything. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 18% 26%, rgba(122, 46, 34, 0.05) 0 1.2px, transparent 2px),
+      radial-gradient(circle at 73% 14%, rgba(122, 46, 34, 0.045) 0 1.5px, transparent 2.4px),
+      radial-gradient(circle at 41% 71%, rgba(110, 125, 91, 0.05) 0 1.4px, transparent 2.2px),
+      radial-gradient(circle at 88% 62%, rgba(189, 131, 27, 0.05) 0 1.3px, transparent 2.2px),
+      radial-gradient(circle at 9% 84%, rgba(31, 46, 41, 0.04) 0 1.6px, transparent 2.6px),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    background-size: 540px 540px, 620px 620px, 700px 700px, 580px 580px, 660px 660px, 160px 160px;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+  }
+
+  /* subtle inner vignette so paper feels lit from above */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(120% 80% at 50% -10%, transparent 55%, rgba(82, 64, 30, 0.12) 100%);
+    mix-blend-mode: multiply;
+  }
+
+  /* keep real content above the texture layers */
+  body > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  ::selection {
+    background: var(--honey-bright);
+    color: var(--ink);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--oxblood);
+    outline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---- Signature type treatments ---------------------------------------- */
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--oxblood);
+}
+
+.mono {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.02em;
+}
+
+.display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 340;
+  line-height: 0.98;
+  letter-spacing: -0.012em;
+  font-variation-settings: "opsz" 144, "SOFT" 25, "WONK" 0;
+}
+
+.display-italic {
+  font-style: italic;
+  font-variation-settings: "opsz" 120, "SOFT" 40, "WONK" 1;
+}
+
+/* the giant register title */
+.title-xl {
+  font-size: clamp(2.9rem, 9vw, 7.5rem);
+}
+.title-l {
+  font-size: clamp(2.2rem, 5.5vw, 4.25rem);
+}
+.title-m {
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+}
+
+.lede {
+  font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.plate-no {
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  color: var(--oxblood);
+  font-variation-settings: "opsz" 40, "SOFT" 40;
+}
+
+/* ---- Rules & frames --------------------------------------------------- */
+
+.hairline {
+  height: 1px;
+  background: var(--rule);
+  border: 0;
+}
+.hairline-soft {
+  height: 1px;
+  background: var(--rule-soft);
+  border: 0;
+}
+
+/* a double rule like an engraving plate border */
+.double-rule {
+  border-top: 1px solid var(--rule);
+  box-shadow: 0 3px 0 -2px var(--rule);
+}
+
+.plate-frame {
+  border: 1px solid var(--rule);
+  box-shadow:
+    inset 0 0 0 1px var(--paper),
+    inset 0 0 0 4px var(--rule-soft);
+  background:
+    linear-gradient(var(--paper-2), var(--paper-2)) padding-box;
+}
+
+/* ---- Engraving line-art self-draw ------------------------------------- */
+
+.draw path,
+.draw line,
+.draw circle,
+.draw ellipse,
+.draw polyline {
+  stroke-dasharray: var(--len, 1200);
+  stroke-dashoffset: var(--len, 1200);
+}
+
+.draw.is-drawn path,
+.draw.is-drawn line,
+.draw.is-drawn circle,
+.draw.is-drawn ellipse,
+.draw.is-drawn polyline {
+  animation: draw-in 2.6s cubic-bezier(0.6, 0.02, 0.2, 1) forwards;
+}
+
+@keyframes draw-in {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* gentle fade/rise for sections coming into view */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* link with an engraved underline that grows on hover */
+.ink-link {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.ink-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: var(--oxblood);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.ink-link:hover::after,
+.ink-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* a small honey gilt button */
+.btn-gilt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink);
+  padding: 0.85rem 1.4rem;
+  border: 1px solid var(--ink);
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+.btn-gilt:hover,
+.btn-gilt:focus-visible {
+  background: var(--honey);
+  border-color: var(--honey);
+  color: var(--ink);
+}
+
+.btn-quiet {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid var(--rule);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.btn-quiet:hover,
+.btn-quiet:focus-visible {
+  border-color: var(--ink);
+  background: var(--paper-2);
+}
+
+/* ---- The isometric map ------------------------------------------------ */
+
+.dmap {
+  margin: 0;
+}
+.dmap-stage {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--rule);
+  background:
+    radial-gradient(120% 90% at 50% 30%, var(--paper) 40%, var(--paper-2) 100%);
+  box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--rule-soft);
+  overflow: hidden;
+}
+.dmap-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.dmap-hive {
+  cursor: pointer;
+  outline: none;
+}
+.dmap-hive g {
+  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.dmap-hive:focus-visible g {
+  filter: drop-shadow(0 0 0 var(--oxblood));
+}
+
+/* tilt-shift: blur only the near + far bands so the board looks miniature */
+.dmap-ts {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 26%;
+  pointer-events: none;
+  backdrop-filter: blur(2.5px);
+  -webkit-backdrop-filter: blur(2.5px);
+}
+.dmap-ts-top {
+  top: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+}
+.dmap-ts-bottom {
+  bottom: 0;
+  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+}
+.dmap-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 44% at 50% 46%, rgba(221, 158, 44, 0.16), transparent 70%);
+  mix-blend-mode: soft-light;
+}
+
+.dmap-town {
+  font-family: var(--font-mono), monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  fill: var(--ink-soft);
+}
+.dmap-compass circle {
+  fill: color-mix(in srgb, var(--paper) 80%, transparent);
+}
+.dmap-compass-n {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  font-weight: 600;
+  fill: var(--oxblood);
+}
+.dmap-flag-name {
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  font-size: 12px;
+  fill: var(--ink);
+}
+.dmap-flag-sub {
+  font-family: var(--font-mono), monospace;
+  font-size: 7px;
+  letter-spacing: 0.06em;
+  fill: var(--ink-soft);
+}
+
+.dmap-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: 0.9rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+.dmap-legend-fig {
+  color: var(--oxblood);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+.dmap-legend-keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.1rem;
+}
+.dmap-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.dmap-swatch {
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--rule);
+  display: inline-block;
+}
+
+/* ---- Form fields ------------------------------------------------------ */
+
+.dgl-input {
+  width: 100%;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 0.7rem 0.85rem;
+  font-family: var(--font-body), Georgia, serif;
+  font-size: 1rem;
+  color: var(--ink);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.dgl-input::placeholder {
+  color: var(--ink-faint);
+  font-style: italic;
+}
+.dgl-input:focus {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: inset 0 -2px 0 0 var(--honey);
+}
+select.dgl-input {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%),
+    linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 1.1rem, calc(100% - 12px) 1.1rem;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .dmap-hive g {
+    transition: none;
+  }
+  .draw path,
+  .draw line,
+  .draw circle,
+  .draw ellipse,
+  .draw polyline {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
