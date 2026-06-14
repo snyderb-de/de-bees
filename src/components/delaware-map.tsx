@@ -279,7 +279,7 @@ function Hive({
       onBlur={onLeave}
       className="dmap-hive"
     >
-      <g transform={`translate(${x},${y}) ${active ? "scale(1.16)" : ""}`} style={{ transformOrigin: `${x}px ${y}px`, transformBox: "fill-box" }}>
+      <g transform={`translate(${x},${y}) ${active ? "scale(1.16)" : ""}`} style={{ pointerEvents: "none" }}>
         {active && <ellipse cx="0" cy="2" rx="24" ry="7.5" fill="var(--honey)" opacity="0.35" />}
         <ellipse cx="0" cy="2" rx="16" ry="5" fill="rgba(31,46,41,0.22)" />
         {/* two supers + a lid */}
@@ -296,6 +296,8 @@ function Hive({
         <line x1="-10" y1="0" x2="10" y2="0" stroke="#7a5320" strokeWidth="1.8" />
         {active && <circle cx="0" cy="-38" r="2.2" fill="var(--oxblood)" />}
       </g>
+      {/* fixed, non-scaling hit target so hover geometry never moves under the cursor */}
+      <rect x={x - 22} y={y - 44} width={44} height={52} fill="transparent" />
     </Link>
   );
 }
