@@ -3,6 +3,7 @@ import { Fraunces, Newsreader, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { RoamingBee } from "@/components/roaming-bee";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -64,6 +65,7 @@ export default function RootLayout({
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <RoamingBee />
       </body>
     </html>
   );
