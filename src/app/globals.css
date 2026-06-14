@@ -309,7 +309,8 @@
   border: 1px solid var(--rule);
   background:
     radial-gradient(120% 90% at 50% 30%, var(--paper) 40%, var(--paper-2) 100%);
-  box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--rule-soft);
+  box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--rule-soft),
+    0 24px 50px -30px rgba(31, 32, 28, 0.55);
   overflow: hidden;
 }
 .dmap-svg {
@@ -321,11 +322,28 @@
   cursor: pointer;
   outline: none;
 }
-.dmap-hive g {
-  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+.dmap-hive-art {
+  transition: transform 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-.dmap-hive:focus-visible g {
-  filter: drop-shadow(0 0 0 var(--oxblood));
+.dmap-hive-glow {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.dmap-hive-flag {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.dmap-hive:hover .dmap-hive-art,
+.dmap-hive:focus-visible .dmap-hive-art {
+  transform: translateY(-4px);
+}
+.dmap-hive:hover .dmap-hive-glow,
+.dmap-hive:focus-visible .dmap-hive-glow {
+  opacity: 0.4;
+}
+.dmap-hive:hover .dmap-hive-flag,
+.dmap-hive:focus-visible .dmap-hive-flag {
+  opacity: 1;
 }
 
 /* tilt-shift: blur only the near + far bands so the board looks miniature */
@@ -335,8 +353,8 @@
   right: 0;
   height: 32%;
   pointer-events: none;
-  backdrop-filter: blur(4px) saturate(1.08);
-  -webkit-backdrop-filter: blur(4px) saturate(1.08);
+  backdrop-filter: blur(5px) saturate(1.12);
+  -webkit-backdrop-filter: blur(5px) saturate(1.12);
 }
 .dmap-ts-top {
   top: 0;
@@ -492,7 +510,9 @@ select.dgl-input {
   html {
     scroll-behavior: auto;
   }
-  .dmap-hive g {
+  .dmap-hive-art,
+  .dmap-hive-glow,
+  .dmap-hive-flag {
     transition: none;
   }
   .roaming-bee {
