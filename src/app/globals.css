@@ -393,6 +393,24 @@
 .dmap-svg:active {
   cursor: grabbing;
 }
+.dmap-county-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.22em;
+  fill: #2f4a1c;
+  opacity: 0.72;
+}
+.dmap-cloud {
+  animation: dmap-drift 64s ease-in-out infinite alternate;
+}
+@keyframes dmap-drift {
+  from {
+    transform: translateX(-14px);
+  }
+  to {
+    transform: translateX(14px);
+  }
+}
 
 /* tilt-shift: blur only the near + far bands so the board looks miniature */
 .dmap-ts {
@@ -562,6 +580,9 @@ select.dgl-input {
   .dmap-hive-glow,
   .dmap-hive-flag {
     transition: none;
+  }
+  .dmap-cloud {
+    animation: none;
   }
   .roaming-bee {
     display: none;
