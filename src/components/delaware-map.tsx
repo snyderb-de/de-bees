@@ -5,44 +5,39 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Keeper } from "@/lib/keepers";
 
 /*
-  A cozy isometric DIORAMA of Delaware — a little 3D model sitting on the
-  ledger's desk. The state is an extruded land slab: a green grass top with
-  layered earth strata (soil → rock) on the cut sides, a soft cast shadow,
-  scattered pebbles and fluffy clouds. Trees, daisies, ponds and fields dress
-  the surface; each apiary is a little Langstroth hive.
+  A cozy diorama of Delaware — a thick, recognizable Delaware "tile" seen
+  slightly from the front. The state is drawn UPRIGHT (north up) so it always
+  reads as Delaware; depth comes from extruding the silhouette down-and-right
+  with layered earth strata (soil → rock) plus a soft cast shadow. The bay sits
+  to the east and hugs the real coastline (land is painted over the water).
+  Grass top, a few trees/daisies/ponds, fluffy clouds.
 
-  Pan + zoom are driven by the SVG viewBox so everything stays crisp vector at
-  any scale. Level-of-detail keeps the full-state view calm (clouds + hives);
-  zooming in reveals trees, daisies, fields, towns and keeper labels. All text
-  is counter-scaled by the zoom so labels stay a constant on-screen size.
-  Hover is pure CSS — nothing re-renders under the cursor.
+  Pan + zoom drive the SVG viewBox (crisp at any scale). Level-of-detail keeps
+  the overview calm; zooming in adds detail. Text counter-scales so labels stay
+  a constant on-screen size. Hover is pure CSS.
 */
 
-const TILT = 0.62;
-const SKEW = -0.2;
-const OX = 190;
-const OY = 50;
-const T = 34; // slab thickness
-const SIDE = 9;
-
-const BASE = { x: 0, y: 0, w: 560, h: 500 };
+const BASE = { x: 0, y: 0, w: 440, h: 560 };
 const ASPECT = BASE.h / BASE.w;
 const MAX_ZOOM = 5;
 const MIN_W = BASE.w / MAX_ZOOM;
 const DETAIL_AT = 1.5;
 const LABELS_AT = 2.4;
 
+// extrusion (depth toward lower-right) + strata
+const EX = 3;
+const EY = 5;
+const NLAYERS = 6;
+const STRATA = ["#6f675b", "#7a7064", "#8a6a3e", "#85602f", "#74522a", "#6b4a2c"]; // deep→shallow
+
 type View = { x: number; y: number; w: number; h: number };
 const clamp = (v: number, a: number, b: number) => Math.min(Math.max(v, a), b);
 
-function toScreen(fx: number, fy: number) {
-  return { x: OX + fx + SKEW * fy, y: OY + fy * TILT };
-}
-
+// drawing space == viewBox space (no projection)
 const COUNTY_BANDS: Record<string, { x0: number; x1: number; y0: number; y1: number }> = {
-  "New Castle": { x0: 114, x1: 198, y0: 156, y1: 280 },
-  Kent: { x0: 112, x1: 222, y0: 312, y1: 410 },
-  Sussex: { x0: 116, x1: 226, y0: 444, y1: 528 },
+  "New Castle": { x0: 106, x1: 198, y0: 150, y1: 298 },
+  Kent: { x0: 108, x1: 240, y0: 306, y1: 402 },
+  Sussex: { x0: 114, x1: 246, y0: 416, y1: 508 },
 };
 
 function hash(s: string): number {
@@ -71,85 +66,74 @@ function placeByCounty(keepers: Keeper[]): Map<string, { x: number; y: number }>
       const cellW = w / cols;
       const cellH = hgt / rows;
       const hv = hash(k.slug);
-      const jx = ((hv % 100) / 100 - 0.5) * cellW * 0.45;
-      const jy = (((hv >>> 8) % 100) / 100 - 0.5) * cellH * 0.45;
+      const jx = ((hv % 100) / 100 - 0.5) * cellW * 0.4;
+      const jy = (((hv >>> 8) % 100) / 100 - 0.5) * cellH * 0.4;
       out.set(k.slug, { x: band.x0 + (c + 0.5) * cellW + jx, y: band.y0 + (r + 0.5) * cellH + jy });
     });
   }
   return out;
 }
 
-const board = `translate(${OX},${OY}) matrix(1,0,${SKEW},${TILT},0,0)`;
-const shadowT = `translate(${OX + SIDE + 12},${OY + T + 18}) matrix(1,0,${SKEW},${TILT},0,0)`;
-
+// Delaware, upright. Straight Mason–Dixon west, flat Transpeninsular south, a
+// near-straight Atlantic coast bending into the concave Delaware Bay, narrowing
+// up the river to the Twelve-Mile Circle arc.
 const STATE_PATH =
-  "M96,150 L96,548 L236,548 C239,470 241,408 240,392 C232,352 214,300 200,250 C196,228 195,206 196,190 C172,120 122,118 96,150 Z";
-const ARC_PATH = "M196,190 C172,120 122,118 96,150";
-
-// soil → rock strata for the cut sides, bottom-most first
-const STRATA = ["#6f675b", "#7d7468", "#8a6a3e", "#7a5532", "#6b4a2c"];
-const STRATA_N = STRATA.length;
+  "M96,150 L96,520 L252,520 C256,442 259,382 258,358 C248,302 222,252 206,208 C204,194 203,184 204,180 C180,118 136,116 96,150 Z";
+const ARC_PATH = "M204,180 C180,118 136,116 96,150";
 
 const TREES: Array<{ x: number; y: number; kind: "round" | "pine" }> = [
-  { x: 124, y: 184, kind: "round" }, { x: 162, y: 224, kind: "pine" },
-  { x: 116, y: 276, kind: "pine" }, { x: 188, y: 286, kind: "round" },
-  { x: 132, y: 356, kind: "round" }, { x: 206, y: 360, kind: "pine" },
-  { x: 110, y: 432, kind: "pine" }, { x: 172, y: 420, kind: "round" },
-  { x: 198, y: 470, kind: "pine" }, { x: 130, y: 502, kind: "round" },
-  { x: 184, y: 512, kind: "pine" }, { x: 150, y: 168, kind: "round" },
+  { x: 120, y: 180, kind: "pine" }, { x: 168, y: 230, kind: "round" },
+  { x: 130, y: 340, kind: "round" }, { x: 210, y: 330, kind: "pine" },
+  { x: 124, y: 440, kind: "pine" }, { x: 196, y: 452, kind: "round" },
+  { x: 150, y: 500, kind: "pine" }, { x: 178, y: 392, kind: "round" },
 ];
 
 export const FLOWERS: Array<{ id: string; x: number; y: number }> = [
-  { id: "nc-piedmont", x: 138, y: 214 },
-  { id: "nc-canal", x: 184, y: 252 },
-  { id: "kent-marsh", x: 142, y: 344 },
-  { id: "kent-fields", x: 208, y: 332 },
-  { id: "sussex-poplar", x: 138, y: 472 },
-  { id: "sussex-coast", x: 206, y: 498 },
-  { id: "sussex-inland", x: 162, y: 516 },
+  { id: "nc-piedmont", x: 140, y: 210 },
+  { id: "kent-fields", x: 196, y: 360 },
+  { id: "kent-marsh", x: 138, y: 372 },
+  { id: "sussex-poplar", x: 150, y: 466 },
+  { id: "sussex-coast", x: 214, y: 480 },
 ];
 
 const DAISIES: Array<{ x: number; y: number }> = [
-  { x: 130, y: 200 }, { x: 170, y: 240 }, { x: 150, y: 300 }, { x: 200, y: 270 },
-  { x: 120, y: 330 }, { x: 190, y: 360 }, { x: 160, y: 400 }, { x: 130, y: 460 },
-  { x: 200, y: 460 }, { x: 150, y: 500 }, { x: 180, y: 520 }, { x: 120, y: 250 },
-  { x: 210, y: 420 }, { x: 145, y: 380 },
+  { x: 134, y: 240 }, { x: 176, y: 200 }, { x: 150, y: 300 }, { x: 200, y: 300 },
+  { x: 126, y: 410 }, { x: 168, y: 430 }, { x: 210, y: 440 }, { x: 144, y: 490 },
+  { x: 188, y: 500 }, { x: 158, y: 350 },
 ];
 
 const PONDS: Array<{ x: number; y: number; rx: number; ry: number }> = [
-  { x: 150, y: 360, rx: 13, ry: 7 }, // Silver Lake-ish, Kent
-  { x: 188, y: 506, rx: 11, ry: 6 }, // inland bay, Sussex
+  { x: 158, y: 356, rx: 11, ry: 6 },
+  { x: 196, y: 498, rx: 9, ry: 5 },
 ];
 
 const FIELDS: Array<{ x: number; y: number; w: number; h: number }> = [
-  { x: 168, y: 470, w: 34, h: 22 },
-  { x: 196, y: 320, w: 30, h: 20 },
-  { x: 132, y: 420, w: 28, h: 18 },
+  { x: 176, y: 470, w: 30, h: 20 },
+  { x: 196, y: 326, w: 26, h: 16 },
 ];
 
 const TOWNS: Array<{ name: string; x: number; y: number }> = [
-  { name: "Wilmington", x: 150, y: 152 },
-  { name: "Dover", x: 168, y: 330 },
-  { name: "Georgetown", x: 158, y: 472 },
-  { name: "Lewes", x: 230, y: 416 },
+  { name: "Wilmington", x: 138, y: 150 },
+  { name: "Dover", x: 150, y: 326 },
+  { name: "Georgetown", x: 152, y: 468 },
+  { name: "Lewes", x: 246, y: 402 },
 ];
 
 const COUNTY_LABELS: Array<{ name: string; x: number; y: number }> = [
-  { name: "New Castle", x: 150, y: 212 },
-  { name: "Kent", x: 165, y: 368 },
-  { name: "Sussex", x: 170, y: 492 },
+  { name: "New Castle", x: 138, y: 214 },
+  { name: "Kent", x: 150, y: 360 },
+  { name: "Sussex", x: 156, y: 482 },
 ];
 
 const CLOUDS: Array<{ x: number; y: number; s: number }> = [
-  { x: 110, y: 70, s: 1 },
-  { x: 430, y: 90, s: 1.2 },
-  { x: 300, y: 50, s: 0.85 },
-  { x: 470, y: 200, s: 0.95 },
+  { x: 70, y: 84, s: 0.9 },
+  { x: 350, y: 70, s: 1.1 },
+  { x: 300, y: 150, s: 0.8 },
 ];
 
 const PEBBLES: Array<{ x: number; y: number; r: number }> = [
-  { x: 120, y: 420, r: 5 }, { x: 150, y: 450, r: 3.4 }, { x: 430, y: 410, r: 5.5 },
-  { x: 460, y: 380, r: 3.6 }, { x: 250, y: 458, r: 4.2 }, { x: 95, y: 360, r: 3.2 },
+  { x: 84, y: 470, r: 4.5 }, { x: 70, y: 430, r: 3 }, { x: 300, y: 520, r: 5 },
+  { x: 330, y: 488, r: 3.2 }, { x: 120, y: 545, r: 4 },
 ];
 
 const COUNTY_SWATCH: Record<string, string> = {
@@ -175,10 +159,9 @@ export function DelawareMap({
     if (focus && keepers[0]) {
       const p = placed.get(keepers[0].slug);
       if (p) {
-        const s = toScreen(p.x, p.y);
-        const w = BASE.w / 3;
+        const w = BASE.w / 2.6;
         const h = w * ASPECT;
-        return { x: clamp(s.x - w / 2, 0, BASE.w - w), y: clamp(s.y - h / 2 - 8, 0, BASE.h - h), w, h };
+        return { x: clamp(p.x - w / 2, 0, BASE.w - w), y: clamp(p.y - h / 2 - 10, 0, BASE.h - h), w, h };
       }
     }
     return { ...BASE };
@@ -193,9 +176,9 @@ export function DelawareMap({
   const moved = useRef(false);
 
   const z = BASE.w / view.w;
-  const ls = view.w / BASE.w; // counter-scale for labels (constant on-screen size)
+  const ls = view.w / BASE.w;
   const showDetail = z >= DETAIL_AT;
-  const showAmbient = z < DETAIL_AT; // clouds/pebbles only in the calm overview
+  const showAmbient = z < DETAIL_AT;
 
   const toViewBox = useCallback((clientX: number, clientY: number) => {
     const el = svgRef.current!;
@@ -290,7 +273,7 @@ export function DelawareMap({
           className={`dmap-svg ${z >= LABELS_AT ? "dmap--labels" : ""}`}
           style={{ touchAction: "none", cursor: z > 1.01 ? "grab" : "default" }}
           role="img"
-          aria-label="Isometric diorama map of Delaware's beekeepers by county"
+          aria-label="Map of Delaware's beekeepers by county"
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
@@ -302,141 +285,124 @@ export function DelawareMap({
           }}
         >
           <defs>
-            <radialGradient id="grass" cx="0.42" cy="0.3" r="0.95">
-              <stop offset="0" stopColor="#a6c766" />
-              <stop offset="0.6" stopColor="#85ab50" />
+            <radialGradient id="grass" cx="0.4" cy="0.28" r="1">
+              <stop offset="0" stopColor="#a9c86a" />
+              <stop offset="0.6" stopColor="#86ac52" />
               <stop offset="1" stopColor="#688c3c" />
             </radialGradient>
-            <linearGradient id="water" x1="0" y1="0" x2="0.6" y2="1">
-              <stop offset="0" stopColor="#8fc0d2" />
-              <stop offset="1" stopColor="#5f97b0" />
+            <linearGradient id="water" x1="0" y1="0" x2="0.5" y2="1">
+              <stop offset="0" stopColor="#90c2d4" />
+              <stop offset="1" stopColor="#5e96af" />
             </linearGradient>
-            <radialGradient id="sky" cx="0.5" cy="0.1" r="1">
-              <stop offset="0" stopColor="#d7e6ea" />
+            <radialGradient id="sky" cx="0.5" cy="0.05" r="1.1">
+              <stop offset="0" stopColor="#dbe8ec" />
               <stop offset="1" stopColor="#eef0e6" />
             </radialGradient>
             <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="7" />
+              <feGaussianBlur stdDeviation="6" />
             </filter>
             <clipPath id="state-clip">
               <path d={STATE_PATH} />
             </clipPath>
           </defs>
 
-          {/* sky behind everything */}
-          <rect x="-200" y="-200" width="960" height="900" fill="url(#sky)" />
+          <rect x="-300" y="-300" width="1100" height="1200" fill="url(#sky)" />
 
-          {/* sea — Delaware Bay + Atlantic */}
-          <g transform={`matrix(1,0,${SKEW},${TILT},${OX - 26},${OY + 14})`}>
-            <ellipse cx="356" cy="344" rx="174" ry="216" fill="url(#water)" opacity="0.92" />
+          {/* sea hugging the east coast (land is painted over it) */}
+          <g>
+            <path d="M196,158 L432,158 L432,520 L196,520 Z" fill="url(#water)" opacity="0.95" />
             <g stroke="#ffffff" strokeOpacity="0.4" strokeWidth="1.6" fill="none">
-              <path d="M300,300 q14,-7 28,0 t28,0" />
-              <path d="M332,360 q14,-7 28,0 t28,0" />
-              <path d="M352,250 q14,-7 28,0 t28,0" />
+              <path d="M312,250 q12,-6 24,0 t24,0" />
+              <path d="M326,320 q12,-6 24,0 t24,0" />
+              <path d="M332,396 q12,-6 24,0 t24,0" />
+            </g>
+            <g transform={`translate(360,300) scale(${ls})`}>
+              <text textAnchor="middle" className="dmap-water">DELAWARE BAY</text>
             </g>
           </g>
 
-          {/* cast shadow grounding the slab */}
-          <g transform={shadowT}>
-            <path d={STATE_PATH} fill="rgba(40,44,30,0.28)" filter="url(#soft)" />
+          {/* cast shadow */}
+          <g transform={`translate(${EX * NLAYERS + 8},${EY * NLAYERS + 10})`}>
+            <path d={STATE_PATH} fill="rgba(40,44,30,0.26)" filter="url(#soft)" />
           </g>
 
-          {/* strata sides (soil → rock), stacked copies dropped below the top */}
-          {Array.from({ length: STRATA_N }).map((_, k) => {
-            const off = (T * (STRATA_N - k)) / STRATA_N;
-            const sx = (SIDE * (STRATA_N - k)) / STRATA_N;
+          {/* extruded strata sides (deep → shallow), offset down-right */}
+          {Array.from({ length: NLAYERS }).map((_, idx) => {
+            const k = NLAYERS - idx; // N..1
             return (
-              <g key={k} transform={`translate(${OX + sx},${OY + off}) matrix(1,0,${SKEW},${TILT},0,0)`}>
-                <path d={STATE_PATH} fill={STRATA[k]} stroke="#4f3a1f" strokeWidth="0.6" strokeLinejoin="round" />
+              <g key={idx} transform={`translate(${EX * k},${EY * k})`}>
+                <path d={STATE_PATH} fill={STRATA[idx]} stroke="#4a3618" strokeWidth="0.6" strokeLinejoin="round" />
               </g>
             );
           })}
-          {/* grass rim just under the cap */}
-          <g transform={`translate(${OX + SIDE * 0.2},${OY + 3}) matrix(1,0,${SKEW},${TILT},0,0)`}>
-            <path d={STATE_PATH} fill="#577a32" />
-          </g>
 
-          {/* top face: grass + surface detail */}
-          <g transform={board}>
-            <path d={STATE_PATH} fill="url(#grass)" stroke="#3f5c25" strokeWidth="1.6" strokeLinejoin="round" />
-            <g clipPath="url(#state-clip)">
-              {/* gentle shading patches for rolling ground */}
-              <g fill="#5f8638" opacity="0.18">
-                <ellipse cx="150" cy="230" rx="48" ry="30" />
-                <ellipse cx="180" cy="360" rx="44" ry="26" />
-                <ellipse cx="160" cy="490" rx="50" ry="28" />
-              </g>
-              {/* fields */}
-              {showDetail && (
-                <g>
-                  {FIELDS.map((f, i) => (
-                    <g key={i}>
-                      <rect x={f.x} y={f.y} width={f.w} height={f.h} fill="#c9b46b" stroke="#9c8748" strokeWidth="0.6" />
-                      {Array.from({ length: Math.floor(f.h / 4) }).map((_, r) => (
-                        <line key={r} x1={f.x} y1={f.y + 3 + r * 4} x2={f.x + f.w} y2={f.y + 3 + r * 4} stroke="#9c8748" strokeWidth="0.4" opacity="0.7" />
-                      ))}
-                    </g>
+          {/* top face */}
+          <path d={STATE_PATH} fill="url(#grass)" stroke="#3f5c25" strokeWidth="1.6" strokeLinejoin="round" />
+          <g clipPath="url(#state-clip)">
+            <g fill="#5f8638" opacity="0.16">
+              <ellipse cx="150" cy="220" rx="46" ry="30" />
+              <ellipse cx="170" cy="360" rx="44" ry="26" />
+              <ellipse cx="165" cy="480" rx="46" ry="26" />
+            </g>
+            {showDetail &&
+              FIELDS.map((f, i) => (
+                <g key={i}>
+                  <rect x={f.x} y={f.y} width={f.w} height={f.h} fill="#c9b46b" stroke="#9c8748" strokeWidth="0.6" />
+                  {Array.from({ length: Math.floor(f.h / 4) }).map((_, r) => (
+                    <line key={r} x1={f.x} y1={f.y + 3 + r * 4} x2={f.x + f.w} y2={f.y + 3 + r * 4} stroke="#9c8748" strokeWidth="0.4" opacity="0.7" />
                   ))}
                 </g>
-              )}
-              {/* ponds */}
-              {PONDS.map((p, i) => (
-                <g key={i}>
-                  <ellipse cx={p.x} cy={p.y} rx={p.rx} ry={p.ry} fill="url(#water)" stroke="#4f86a0" strokeWidth="0.8" />
-                  <ellipse cx={p.x - p.rx * 0.3} cy={p.y - p.ry * 0.3} rx={p.rx * 0.4} ry={p.ry * 0.3} fill="#ffffff" opacity="0.35" />
-                </g>
               ))}
-              {/* rivers */}
-              <g stroke="#7fb0c4" strokeWidth="2.2" fill="none" strokeLinecap="round" opacity="0.85">
-                <path d="M150,432 C140,470 120,510 110,548" />
-                <path d="M172,304 C180,340 168,372 152,360" />
+            {PONDS.map((p, i) => (
+              <g key={i}>
+                <ellipse cx={p.x} cy={p.y} rx={p.rx} ry={p.ry} fill="url(#water)" stroke="#4f86a0" strokeWidth="0.8" />
+                <ellipse cx={p.x - p.rx * 0.3} cy={p.y - p.ry * 0.3} rx={p.rx * 0.4} ry={p.ry * 0.3} fill="#fff" opacity="0.35" />
               </g>
-              {/* county dividers */}
-              <g stroke="#3f5c25" strokeWidth="1" strokeDasharray="3 5" opacity="0.5">
-                <path d="M96,304 L240,304" />
-                <path d="M96,432 L214,432" />
-              </g>
+            ))}
+            <g stroke="#7fb0c4" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.8">
+              <path d="M150,420 C140,460 122,500 112,520" />
+              <path d="M170,300 C178,332 168,360 154,372" />
             </g>
-            <path d={ARC_PATH} fill="none" stroke="#bce08a" strokeWidth="1.4" opacity="0.7" />
+            <g stroke="#3f5c25" strokeWidth="1" strokeDasharray="3 5" opacity="0.5">
+              <path d="M96,300 L256,300" />
+              <path d="M96,408 L240,408" />
+            </g>
           </g>
+          <path d={ARC_PATH} fill="none" stroke="#bce08a" strokeWidth="1.4" opacity="0.7" />
 
-          {/* clouds (overview only) */}
+          {/* clouds + pebbles in the calm overview */}
           {showAmbient && CLOUDS.map((c, i) => <Cloud key={i} x={c.x} y={c.y} s={c.s} i={i} />)}
-          {/* pebbles around the base (overview only) */}
-          {showAmbient && PEBBLES.map((p, i) => (
-            <g key={i}>
-              <ellipse cx={p.x} cy={p.y + p.r * 0.5} rx={p.r * 1.2} ry={p.r * 0.4} fill="rgba(40,44,30,0.18)" />
-              <ellipse cx={p.x} cy={p.y} rx={p.r} ry={p.r * 0.8} fill="#b4ae9f" stroke="#8f8979" strokeWidth="0.5" />
-            </g>
-          ))}
+          {showAmbient &&
+            PEBBLES.map((p, i) => (
+              <g key={i}>
+                <ellipse cx={p.x} cy={p.y + p.r * 0.5} rx={p.r * 1.2} ry={p.r * 0.4} fill="rgba(40,44,30,0.18)" />
+                <ellipse cx={p.x} cy={p.y} rx={p.r} ry={p.r * 0.8} fill="#b4ae9f" stroke="#8f8979" strokeWidth="0.5" />
+              </g>
+            ))}
 
           {/* surface sprites */}
           <g>
             {items.map((it) => {
-              const p = toScreen(it.fx, it.fy);
-              if (it.kind === "tree") return showDetail ? <Tree key={it.key} x={p.x} y={p.y} variant={it.treeKind!} /> : null;
-              if (it.kind === "daisy") return showDetail ? <Daisy key={it.key} x={p.x} y={p.y} /> : null;
-              if (it.kind === "flower") return showDetail ? <Flower key={it.key} x={p.x} y={p.y} id={it.id!} seed={it.seed!} /> : null;
-              if (it.kind === "town") return showDetail ? <Town key={it.key} x={p.x} y={p.y} name={it.name!} ls={ls} /> : null;
-              return <Hive key={it.key} x={p.x} y={p.y} keeper={it.data!} ls={ls} />;
+              if (it.kind === "tree") return showDetail ? <Tree key={it.key} x={it.fx} y={it.fy} variant={it.treeKind!} /> : null;
+              if (it.kind === "daisy") return showDetail ? <Daisy key={it.key} x={it.fx} y={it.fy} /> : null;
+              if (it.kind === "flower") return showDetail ? <Flower key={it.key} x={it.fx} y={it.fy} id={it.id!} seed={it.seed!} /> : null;
+              if (it.kind === "town") return showDetail ? <Town key={it.key} x={it.fx} y={it.fy} name={it.name!} ls={ls} /> : null;
+              return <Hive key={it.key} x={it.fx} y={it.fy} keeper={it.data!} ls={ls} />;
             })}
           </g>
 
           {/* county labels — always shown, constant size */}
-          {COUNTY_LABELS.map((c) => {
-            const p = toScreen(c.x, c.y);
-            return (
-              <g key={c.name} transform={`translate(${p.x},${p.y}) scale(${ls})`} style={{ pointerEvents: "none" }}>
-                <text textAnchor="middle" className="dmap-county-label">{c.name.toUpperCase()}</text>
-              </g>
-            );
-          })}
+          {COUNTY_LABELS.map((c) => (
+            <g key={c.name} transform={`translate(${c.x},${c.y}) scale(${ls})`} style={{ pointerEvents: "none" }}>
+              <text textAnchor="middle" className="dmap-county-label">{c.name.toUpperCase()}</text>
+            </g>
+          ))}
 
-          {/* compass — constant size */}
-          <g transform={`translate(56,70) scale(${ls})`} className="dmap-compass">
-            <circle r="20" fill="rgba(255,255,255,0.6)" stroke="var(--rule)" />
-            <path d="M0,-15 L5,3 L0,-2 L-5,3 Z" fill="var(--oxblood)" stroke="none" />
-            <text x="0" y="-23" textAnchor="middle" className="dmap-compass-n">N</text>
+          {/* compass */}
+          <g transform={`translate(46,80) scale(${ls})`} className="dmap-compass">
+            <circle r="18" fill="rgba(255,255,255,0.6)" stroke="var(--rule)" />
+            <path d="M0,-13 L4,3 L0,-1 L-4,3 Z" fill="var(--oxblood)" stroke="none" />
+            <text x="0" y="-21" textAnchor="middle" className="dmap-compass-n">N</text>
           </g>
         </svg>
 
@@ -490,7 +456,7 @@ function buildItems(keepers: Keeper[], placed: Map<string, { x: number; y: numbe
     ...FLOWERS.map((f, i) => ({ key: f.id, kind: "flower" as const, fx: f.x, fy: f.y, id: f.id, seed: i })),
     ...TOWNS.map((t, i) => ({ key: `w${i}`, kind: "town" as const, fx: t.x, fy: t.y, name: t.name })),
     ...keepers.map((k) => {
-      const p = placed.get(k.slug) ?? { x: 168, y: 360 };
+      const p = placed.get(k.slug) ?? { x: 170, y: 360 };
       return { key: k.slug, kind: "hive" as const, fx: p.x, fy: p.y, data: k };
     }),
   ];
@@ -501,16 +467,16 @@ function Cloud({ x, y, s, i }: { x: number; y: number; s: number; i: number }) {
   return (
     <g transform={`translate(${x},${y}) scale(${s})`}>
       <g className="dmap-cloud" style={{ animationDelay: `${i * -7}s` }}>
-        <g fill="#9fb0b4" opacity="0.35" transform="translate(2,4)">
-          <ellipse cx="0" cy="0" rx="20" ry="11" />
-          <ellipse cx="16" cy="2" rx="14" ry="9" />
-          <ellipse cx="-15" cy="3" rx="12" ry="8" />
+        <g fill="#9fb0b4" opacity="0.3" transform="translate(2,4)">
+          <ellipse cx="0" cy="0" rx="18" ry="10" />
+          <ellipse cx="14" cy="2" rx="12" ry="8" />
+          <ellipse cx="-13" cy="3" rx="11" ry="7" />
         </g>
         <g fill="#fcfdff">
-          <ellipse cx="0" cy="0" rx="20" ry="11" />
-          <ellipse cx="16" cy="2" rx="14" ry="9" />
-          <ellipse cx="-15" cy="3" rx="12" ry="8" />
-          <ellipse cx="4" cy="-6" rx="12" ry="9" />
+          <ellipse cx="0" cy="0" rx="18" ry="10" />
+          <ellipse cx="14" cy="2" rx="12" ry="8" />
+          <ellipse cx="-13" cy="3" rx="11" ry="7" />
+          <ellipse cx="3" cy="-5" rx="11" ry="8" />
         </g>
       </g>
     </g>
@@ -521,24 +487,24 @@ function Tree({ x, y, variant }: { x: number; y: number; variant: "round" | "pin
   if (variant === "pine") {
     return (
       <g transform={`translate(${x},${y})`}>
-        <ellipse cx="0" cy="1" rx="8" ry="2.6" fill="rgba(40,44,30,0.18)" />
-        <line x1="0" y1="0" x2="0" y2="-7" stroke="#6b4a2c" strokeWidth="2" />
-        <g stroke="#2f5326" strokeWidth="0.6">
-          <path d="M-9,-7 L0,-26 L9,-7 Z" fill="#4f7a3e" />
-          <path d="M-7,-15 L0,-30 L7,-15 Z" fill="#5a8a46" />
-          <path d="M-5,-22 L0,-34 L5,-22 Z" fill="#659a4e" />
+        <ellipse cx="0" cy="1" rx="7" ry="2.2" fill="rgba(40,44,30,0.18)" />
+        <line x1="0" y1="0" x2="0" y2="-6" stroke="#6b4a2c" strokeWidth="1.8" />
+        <g stroke="#2f5326" strokeWidth="0.5">
+          <path d="M-8,-6 L0,-22 L8,-6 Z" fill="#4f7a3e" />
+          <path d="M-6,-13 L0,-26 L6,-13 Z" fill="#5a8a46" />
+          <path d="M-4,-19 L0,-29 L4,-19 Z" fill="#659a4e" />
         </g>
       </g>
     );
   }
   return (
     <g transform={`translate(${x},${y})`}>
-      <ellipse cx="0" cy="1" rx="9" ry="2.8" fill="rgba(40,44,30,0.18)" />
-      <line x1="0" y1="0" x2="0" y2="-8" stroke="#6b4a2c" strokeWidth="2" />
-      <g stroke="#3f6b30" strokeWidth="0.6">
-        <circle cx="0" cy="-20" r="12" fill="#5d8c39" />
-        <circle cx="-5" cy="-22" r="7" fill="#6fa047" />
-        <circle cx="4" cy="-24" r="6" fill="#7cae52" />
+      <ellipse cx="0" cy="1" rx="8" ry="2.4" fill="rgba(40,44,30,0.18)" />
+      <line x1="0" y1="0" x2="0" y2="-7" stroke="#6b4a2c" strokeWidth="1.8" />
+      <g stroke="#3f6b30" strokeWidth="0.5">
+        <circle cx="0" cy="-17" r="10" fill="#5d8c39" />
+        <circle cx="-4" cy="-19" r="6" fill="#6fa047" />
+        <circle cx="4" cy="-20" r="5" fill="#7cae52" />
       </g>
     </g>
   );
@@ -548,25 +514,25 @@ function Daisy({ x, y }: { x: number; y: number }) {
   return (
     <g transform={`translate(${x},${y})`}>
       <g fill="#fbfdff">
-        {[0, 60, 120, 180, 240, 300].map((a) => (
-          <ellipse key={a} cx="0" cy="-3" rx="1.3" ry="2.6" transform={`rotate(${a})`} />
+        {[0, 72, 144, 216, 288].map((a) => (
+          <ellipse key={a} cx="0" cy="-2.6" rx="1.1" ry="2.2" transform={`rotate(${a})`} />
         ))}
       </g>
-      <circle cx="0" cy="0" r="1.7" fill="#f1c33c" />
+      <circle cx="0" cy="0" r="1.4" fill="#f1c33c" />
     </g>
   );
 }
 
 function Flower({ x, y, id, seed }: { x: number; y: number; id: string; seed: number }) {
   const tops = ["#e0a82e", "#c8861e", "#a87fc0", "#f0e3c4"];
-  const stems = [-6, -1, 4, 9].map((dx, i) => ({ dx, h: 9 + ((seed + i) % 3) * 2, c: tops[(seed + i) % tops.length] }));
+  const stems = [-5, 0, 5].map((dx, i) => ({ dx, h: 8 + ((seed + i) % 3) * 2, c: tops[(seed + i) % tops.length] }));
   return (
     <g transform={`translate(${x},${y})`} data-flower={id}>
-      <ellipse cx="1" cy="1" rx="9" ry="2.6" fill="rgba(40,44,30,0.14)" />
+      <ellipse cx="0" cy="1" rx="7" ry="2.2" fill="rgba(40,44,30,0.14)" />
       {stems.map((s, i) => (
         <g key={i}>
-          <line x1={s.dx} y1="0" x2={s.dx} y2={-s.h} stroke="#3f6b30" strokeWidth="1" />
-          <circle cx={s.dx} cy={-s.h} r="2.6" fill={s.c} stroke="#4f3a1f" strokeWidth="0.4" />
+          <line x1={s.dx} y1="0" x2={s.dx} y2={-s.h} stroke="#3f6b30" strokeWidth="0.9" />
+          <circle cx={s.dx} cy={-s.h} r="2.2" fill={s.c} stroke="#4f3a1f" strokeWidth="0.4" />
         </g>
       ))}
     </g>
@@ -576,13 +542,12 @@ function Flower({ x, y, id, seed }: { x: number; y: number; id: string; seed: nu
 function Town({ x, y, name, ls }: { x: number; y: number; name: string; ls: number }) {
   return (
     <g transform={`translate(${x},${y})`}>
-      <g stroke="#5a4a32" strokeWidth="1" fill="#efe7d3">
-        <path d="M-9,-2 L-9,-9 L-4,-13 L1,-9 L1,-2 Z" />
-        <path d="M0,-2 L0,-7 L4,-11 L8,-7 L8,-2 Z" />
-        <path d="M-9,-9 L-4,-13 L1,-9 Z" fill="#a8451f" />
+      <g stroke="#5a4a32" strokeWidth="0.9" fill="#efe7d3">
+        <path d="M-8,-2 L-8,-8 L-3.5,-11.5 L1,-8 L1,-2 Z" />
+        <path d="M-8,-8 L-3.5,-11.5 L1,-8 Z" fill="#a8451f" />
       </g>
       <g transform={`scale(${ls})`} style={{ pointerEvents: "none" }}>
-        <text x="0" y="16" textAnchor="middle" className="dmap-town">{name}</text>
+        <text x="0" y="14" textAnchor="middle" className="dmap-town">{name}</text>
       </g>
     </g>
   );
@@ -597,11 +562,11 @@ function Hive({ x, y, keeper, ls }: { x: number; y: number; keeper: Keeper; ls: 
       aria-label={`${label} — ${keeper.counties.join(", ")} County`}
       className="dmap-hive"
     >
-      <rect x={x - 19} y={y - 40} width={38} height={46} fill="#000" fillOpacity="0" style={{ pointerEvents: "all" }} />
-      <g transform={`translate(${x},${y})`} style={{ pointerEvents: "none" }}>
+      <rect x={x - 12} y={y - 26} width={24} height={32} fill="#000" fillOpacity="0" style={{ pointerEvents: "all" }} />
+      <g transform={`translate(${x},${y}) scale(0.6)`} style={{ pointerEvents: "none" }}>
         <g className="dmap-hive-art">
           <ellipse className="dmap-hive-glow" cx="0" cy="2" rx="22" ry="7" fill="var(--honey)" />
-          <ellipse cx="0" cy="2" rx="15" ry="4.6" fill="rgba(40,44,30,0.26)" />
+          <ellipse cx="0" cy="2" rx="14" ry="4.4" fill="rgba(40,44,30,0.28)" />
           <HiveBox top={-13} h={13} front="#c08a2e" topf="#dcab50" side="#9c6e22" />
           <HiveBox top={-26} h={13} front="#cd9436" topf="#e6b65a" side="#a8772a" />
           <g>
@@ -614,11 +579,11 @@ function Hive({ x, y, keeper, ls }: { x: number; y: number; keeper: Keeper; ls: 
         </g>
       </g>
       <g className="dmap-hive-flag" transform={`translate(${x},${y}) scale(${ls})`} style={{ pointerEvents: "none" }}>
-        <line x1="0" y1="-36" x2="0" y2="-30" stroke="var(--ink)" strokeWidth="1" />
-        <g transform="translate(0,-52)">
-          <rect x="-74" y="0" width="148" height="30" rx="2" fill="var(--paper)" stroke="var(--ink)" strokeWidth="1" />
-          <text x="0" y="13" textAnchor="middle" className="dmap-flag-name">{label}</text>
-          <text x="0" y="24" textAnchor="middle" className="dmap-flag-sub">{sub}</text>
+        <line x1="0" y1="-28" x2="0" y2="-22" stroke="var(--ink)" strokeWidth="1" />
+        <g transform="translate(0,-44)">
+          <rect x="-72" y="0" width="144" height="29" rx="2" fill="var(--paper)" stroke="var(--ink)" strokeWidth="1" />
+          <text x="0" y="12" textAnchor="middle" className="dmap-flag-name">{label}</text>
+          <text x="0" y="23" textAnchor="middle" className="dmap-flag-sub">{sub}</text>
         </g>
       </g>
     </Link>

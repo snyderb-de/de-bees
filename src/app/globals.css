@@ -301,7 +301,8 @@
 /* ---- The isometric map ------------------------------------------------ */
 
 .dmap {
-  margin: 0;
+  margin: 0 auto;
+  max-width: 480px;
 }
 .dmap-stage {
   position: relative;
