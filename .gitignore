@@ -2,6 +2,10 @@
 
 # dependencies
 /node_modules
+/.corepack-bin/
+/.direnv/
+/.npm-cache/
+/.npm-global/
 /.pnp
 .pnp.*
 .yarn/*
