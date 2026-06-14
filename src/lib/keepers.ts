@@ -23,10 +23,13 @@ export interface Keeper {
   keeper: string; // person's name, as registered
   business?: string; // apiary / business name, if registered with one
   counties: County[]; // counties they serve
-  // Business-only contact (see PRIVACY note above).
+  // Business-only contact (see PRIVACY note above). Phones/sites below are the
+  // ones a business publishes on its own pages, not the personal swarm-list cell.
   email?: string;
   phone?: string;
   website?: string;
+  address?: string; // public farm/storefront address
+  whereToBuy?: string[]; // retail partners + farmers markets
   services: Services;
 }
 
@@ -39,15 +42,24 @@ export const KEEPERS: Keeper[] = [
     business: "Douglas Bee Apiary Co.",
     counties: ["New Castle", "Kent"],
     email: "douglasbeeapiary@gmail.com",
+    phone: "302-358-7218",
     website: "https://www.douglasbeeapiary.com",
+    address: "1901 N DuPont Hwy, New Castle, DE",
     services: { swarm: true, cutout: true },
   },
   {
     slug: "big-joes-honey",
-    keeper: "Joseph Nicolai",
+    keeper: "Joseph & Theresa Nicolai",
     business: "Big Joe's Honey",
     counties: ["Kent"],
     email: "bigjoeshoney@verizon.net",
+    phone: "302-697-2830",
+    website: "https://www.facebook.com/bigjoeshoney",
+    whereToBuy: [
+      "Story Hill Farm store, Felton",
+      "Historic Odessa Brewfest",
+      "Facebook for market dates",
+    ],
     services: { swarm: true, cutout: true },
   },
   {
@@ -56,14 +68,30 @@ export const KEEPERS: Keeper[] = [
     business: "The Carey Apiary and Farm, LLC",
     counties: ["New Castle", "Kent", "Sussex"],
     email: "patrick@careyapiary.com",
+    phone: "302-245-9537",
+    website: "https://www.careyapiary.com",
+    address: "31026 Frankford School Rd, Frankford, DE",
+    whereToBuy: [
+      "Farm store & online shop",
+      "Flutterby House",
+      "Story Hill Farm",
+      "Inland Bay Garden",
+    ],
     services: { swarm: true, cutout: true },
   },
   {
     slug: "gravesyard-apiary",
-    keeper: "Joseph Graves",
+    keeper: "Joe & Joanne Graves",
     business: "Gravesyard Apiary",
     counties: ["New Castle"],
     email: "queenbee@gravesyardapiary.com",
+    phone: "302-598-0686",
+    website: "https://www.gravesyardapiary.com",
+    address: "31a Meadow Rd, New Castle, DE",
+    whereToBuy: [
+      "Wilmington Downtown Farmers Market",
+      "Brandywine Park Farmers Market",
+    ],
     services: { swarm: true, cutout: false },
   },
   {
@@ -72,6 +100,9 @@ export const KEEPERS: Keeper[] = [
     business: "Against the Grain Farm",
     counties: ["Kent"],
     email: "info@atg.farm",
+    website: "https://www.atg.farm",
+    address: "807 Frenchtown Rd E, New Castle, DE",
+    whereToBuy: ["Newark Co-op Farmers Market (Sundays)"],
     services: { swarm: true, cutout: false },
   },
   {
@@ -100,6 +131,9 @@ export const KEEPERS: Keeper[] = [
     keeper: "Jeffery Peck",
     business: "Abbott's & Oak Farms, LLC",
     counties: ["Kent", "Sussex"],
+    website: "https://abbottsandoak.com",
+    address: "7910 Old Oak Lane, Milford, DE",
+    whereToBuy: ["On-farm store & you-cut, Milford"],
     services: { swarm: true, cutout: true },
   },
   {
@@ -107,6 +141,7 @@ export const KEEPERS: Keeper[] = [
     keeper: "David & Heather Cook",
     business: "S&S Apiaries",
     counties: ["New Castle", "Kent", "Sussex"],
+    website: "https://www.ssapiaries.com",
     services: { swarm: true, cutout: true },
   },
   {

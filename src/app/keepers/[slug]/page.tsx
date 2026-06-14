@@ -110,7 +110,7 @@ export default async function KeeperPage({
         <aside className="space-y-8">
           <div className="plate-frame p-6">
             <h2 className="eyebrow mb-4">Contact</h2>
-            {keeper.website || keeper.email ? (
+            {keeper.website || keeper.email || keeper.phone ? (
               <div className="space-y-3">
                 {keeper.website && (
                   <a
@@ -119,13 +119,21 @@ export default async function KeeperPage({
                     rel="noopener noreferrer"
                     className="btn-gilt w-full justify-center"
                   >
-                    Visit storefront ↗
+                    {keeper.website.includes("facebook") ? "Facebook page ↗" : "Visit storefront ↗"}
                   </a>
                 )}
                 {keeper.email && (
                   <a href={`mailto:${keeper.email}`} className="ink-link block break-all">
                     {keeper.email}
                   </a>
+                )}
+                {keeper.phone && (
+                  <a href={`tel:${keeper.phone}`} className="ink-link block">
+                    {keeper.phone}
+                  </a>
+                )}
+                {keeper.address && (
+                  <p className="text-[0.85rem] leading-[1.4] text-[color:var(--ink-soft)]">{keeper.address}</p>
                 )}
               </div>
             ) : (
@@ -153,6 +161,19 @@ export default async function KeeperPage({
               <Row k="Registered" v={`✦ ${SOURCE.updated}`} />
             </dl>
           </div>
+
+          {keeper.whereToBuy && keeper.whereToBuy.length > 0 && (
+            <div>
+              <h2 className="eyebrow mb-3">Where to find their honey</h2>
+              <ul className="space-y-2">
+                {keeper.whereToBuy.map((w) => (
+                  <li key={w} className="flex gap-2 text-[0.92rem] text-[color:var(--ink-soft)]">
+                    <span style={{ color: "var(--honey)" }}>•</span> {w}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div>
             <h2 className="eyebrow mb-3">Where they serve</h2>
