@@ -26,9 +26,10 @@ const LABELS_AT = 2.4;
 
 // extrusion (depth toward lower-right) + strata
 const EX = 3;
-const EY = 5;
+const EY = 6;
 const NLAYERS = 6;
-const STRATA = ["#6f675b", "#7a7064", "#8a6a3e", "#85602f", "#74522a", "#6b4a2c"]; // deep→shallow
+// deep rock → soils → grass cap (shallowest, just under the top face)
+const STRATA = ["#6e665a", "#7c7468", "#8a6a3e", "#8f6f3a", "#7a5a30", "#5f8730"];
 
 type View = { x: number; y: number; w: number; h: number };
 const clamp = (v: number, a: number, b: number) => Math.min(Math.max(v, a), b);
@@ -78,7 +79,7 @@ function placeByCounty(keepers: Keeper[]): Map<string, { x: number; y: number }>
 // near-straight Atlantic coast bending into the concave Delaware Bay, narrowing
 // up the river to the Twelve-Mile Circle arc.
 const STATE_PATH =
-  "M96,150 L96,520 L252,520 C256,442 259,382 258,358 C248,302 222,252 206,208 C204,194 203,184 204,180 C180,118 136,116 96,150 Z";
+  "M96,150 L96,512 Q96,520 104,520 L244,520 Q252,520 252,512 C256,442 259,382 258,358 C248,302 222,252 206,208 C204,194 203,184 204,180 C180,118 136,116 96,150 Z";
 const ARC_PATH = "M204,180 C180,118 136,116 96,150";
 
 const TREES: Array<{ x: number; y: number; kind: "round" | "pine" }> = [
@@ -339,6 +340,9 @@ export function DelawareMap({
           {/* top face */}
           <path d={STATE_PATH} fill="url(#grass)" stroke="#3f5c25" strokeWidth="1.6" strokeLinejoin="round" />
           <g clipPath="url(#state-clip)">
+            {/* sun highlight (top-left) + soft inner-shadow rim = domed grass */}
+            <ellipse cx="138" cy="208" rx="120" ry="160" fill="#c4dd86" opacity="0.3" />
+            <path d={STATE_PATH} fill="none" stroke="#2f4a1c" strokeWidth="16" opacity="0.22" filter="url(#soft)" />
             <g fill="#5f8638" opacity="0.16">
               <ellipse cx="150" cy="220" rx="46" ry="30" />
               <ellipse cx="170" cy="360" rx="44" ry="26" />
@@ -368,7 +372,8 @@ export function DelawareMap({
               <path d="M96,408 L240,408" />
             </g>
           </g>
-          <path d={ARC_PATH} fill="none" stroke="#bce08a" strokeWidth="1.4" opacity="0.7" />
+          <path d={ARC_PATH} fill="none" stroke="#bce08a" strokeWidth="1.6" opacity="0.75" />
+          <path d="M96,156 L96,420" fill="none" stroke="#bce08a" strokeWidth="1.4" opacity="0.5" />
 
           {/* clouds + pebbles in the calm overview */}
           {showAmbient && CLOUDS.map((c, i) => <Cloud key={i} x={c.x} y={c.y} s={c.s} i={i} />)}
