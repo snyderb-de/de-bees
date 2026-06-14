@@ -1,41 +1,48 @@
 "use client";
 
 import { useState } from "react";
-import { ALL_OFFERINGS, COUNTIES, type County, type Offering } from "@/lib/keepers";
+import { COUNTIES, type County } from "@/lib/keepers";
 import { SITE } from "@/lib/site";
 
+const SERVICES = [
+  "Swarm removal",
+  "Structural cut-outs",
+  "Sell honey / products",
+  "Nucs, queens or bees",
+  "Pollination",
+  "Classes / mentoring",
+];
+
 export function GetListedForm() {
-  const [apiary, setApiary] = useState("");
+  const [business, setBusiness] = useState("");
   const [keeper, setKeeper] = useState("");
   const [email, setEmail] = useState("");
   const [town, setTown] = useState("");
   const [county, setCounty] = useState<County>("New Castle");
-  const [hives, setHives] = useState("");
-  const [store, setStore] = useState("");
-  const [offerings, setOfferings] = useState<Offering[]>(["Raw Honey"]);
+  const [website, setWebsite] = useState("");
+  const [services, setServices] = useState<string[]>([]);
   const [about, setAbout] = useState("");
 
-  function toggle(o: Offering) {
-    setOfferings((cur) => (cur.includes(o) ? cur.filter((x) => x !== o) : [...cur, o]));
+  function toggle(s: string) {
+    setServices((cur) => (cur.includes(s) ? cur.filter((x) => x !== s) : [...cur, s]));
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const body = [
-      `Apiary: ${apiary}`,
+      `Business / apiary: ${business}`,
       `Keeper: ${keeper}`,
       `Email: ${email}`,
       `Town: ${town}`,
       `County: ${county}`,
-      `Hives: ${hives}`,
-      `Store / link: ${store}`,
-      `Offers: ${offerings.join(", ")}`,
+      `Website / storefront: ${website}`,
+      `Offers: ${services.join(", ")}`,
       "",
       "About the apiary:",
       about,
     ].join("\n");
     const href = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent(
-      `Register my apiary — ${apiary || "new keeper"}`,
+      `Register my apiary — ${business || keeper || "new keeper"}`,
     )}&body=${encodeURIComponent(body)}`;
     window.location.href = href;
   }
@@ -43,14 +50,14 @@ export function GetListedForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <div className="grid gap-6 sm:grid-cols-2">
-        <Field label="Apiary name" required>
-          <input className="dgl-input" value={apiary} onChange={(e) => setApiary(e.target.value)} required placeholder="e.g. Cypress Branch Bees" />
+        <Field label="Business / apiary name">
+          <input className="dgl-input" value={business} onChange={(e) => setBusiness(e.target.value)} placeholder="e.g. Gravesyard Apiary" />
         </Field>
         <Field label="Your name" required>
           <input className="dgl-input" value={keeper} onChange={(e) => setKeeper(e.target.value)} required placeholder="Who keeps the bees" />
         </Field>
-        <Field label="Email" required>
-          <input type="email" className="dgl-input" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="you@example.com" />
+        <Field label="Business email" required>
+          <input type="email" className="dgl-input" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="hello@yourapiary.com" />
         </Field>
         <Field label="Home town" required>
           <input className="dgl-input" value={town} onChange={(e) => setTown(e.target.value)} required placeholder="e.g. Milton" />
@@ -62,25 +69,21 @@ export function GetListedForm() {
             ))}
           </select>
         </Field>
-        <Field label="Number of hives">
-          <input className="dgl-input" value={hives} onChange={(e) => setHives(e.target.value)} inputMode="numeric" placeholder="e.g. 24" />
+        <Field label="Website / storefront (optional)">
+          <input className="dgl-input" value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://…" />
         </Field>
       </div>
-
-      <Field label="Store or website (optional)">
-        <input className="dgl-input" value={store} onChange={(e) => setStore(e.target.value)} placeholder="https://…" />
-      </Field>
 
       <fieldset>
         <legend className="eyebrow mb-3">What do you offer?</legend>
         <div className="flex flex-wrap gap-2">
-          {ALL_OFFERINGS.map((o) => {
-            const on = offerings.includes(o);
+          {SERVICES.map((s) => {
+            const on = services.includes(s);
             return (
               <button
-                key={o}
+                key={s}
                 type="button"
-                onClick={() => toggle(o)}
+                onClick={() => toggle(s)}
                 aria-pressed={on}
                 className="mono border px-3 py-1.5 text-[0.7rem] tracking-[0.04em] transition-colors"
                 style={{
@@ -89,7 +92,7 @@ export function GetListedForm() {
                   color: on ? "var(--paper)" : "var(--ink-soft)",
                 }}
               >
-                {o}
+                {s}
               </button>
             );
           })}
@@ -110,7 +113,8 @@ export function GetListedForm() {
           Send my listing
         </button>
         <p className="mono text-[0.66rem] leading-[1.6] tracking-[0.04em] text-[color:var(--ink-faint)]">
-          Opens your email to send it to the keeper of the ledger. Free, always.
+          Opens your email to send it to the keeper of the ledger. Free, always. We only
+          publish business contacts — never personal cell numbers.
         </p>
       </div>
     </form>

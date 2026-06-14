@@ -25,12 +25,11 @@ export default function GetListedPage() {
             <div>
               <h2 className="eyebrow mb-3">What a plate holds</h2>
               <ul className="space-y-2 text-[0.96rem] text-[color:var(--ink-soft)]">
-                <li>— Your apiary&apos;s name, story, and home town</li>
-                <li>— Honey varietals, each with its colour grade and notes</li>
-                <li>— Everything you offer, from comb to queens</li>
-                <li>— Swarm, cut-out &amp; pollination availability</li>
-                <li>— A link to your store, and a hive on the map</li>
-                <li>— Your premiums and show ribbons</li>
+                <li>— Your apiary&apos;s name and the counties you serve</li>
+                <li>— What you offer — swarm calls, cut-outs, honey &amp; products</li>
+                <li>— A link to your storefront, and a hive on the map</li>
+                <li>— Business contact only — never your personal cell</li>
+                <li>— Room to grow: your story and honey as the ledger fills out</li>
               </ul>
             </div>
 

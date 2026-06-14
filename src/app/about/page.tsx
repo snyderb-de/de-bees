@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
 import { EngravedBee } from "@/components/engraved-bee";
+import { SOURCE } from "@/lib/keepers";
 import { COUNTY_INFO } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -58,10 +59,6 @@ export default function AboutPage() {
                 does cut-outs, and rents hives for pollination.
               </Bullet>
               <Bullet>
-                <strong>Premiums</strong> — the honours roll from the State Fair
-                and county shows.
-              </Bullet>
-              <Bullet>
                 <strong>Learn</strong> — clubs, registering your hive, and the
                 nectar calendar for anyone starting out.
               </Bullet>
@@ -107,11 +104,14 @@ export default function AboutPage() {
         </div>
 
         <p className="mono mt-16 border-t border-[color:var(--rule)] pt-6 text-[0.7rem] leading-[1.7] text-[color:var(--ink-faint)]">
-          A note on the entries: the keepers shown at launch are illustrative
-          samples, drawn to show what a plate can hold. Real listings replace them
-          as keepers join. This is an independent project and is not affiliated
-          with the Delaware Beekeepers Association or the Delaware Department of
-          Agriculture.
+          A note on the entries: listings are drawn from the {SOURCE.agency}&apos;s{" "}
+          {SOURCE.updated} registered beekeeper lists. We publish business and storefront
+          contacts only — personal cell numbers and personal email addresses from the
+          state lists are deliberately omitted. Keepers can correct, expand, or remove
+          their entry at any time via{" "}
+          <a href="/get-listed" className="underline">Get Listed</a>. This is an
+          independent project and is not affiliated with the Delaware Beekeepers
+          Association or the {SOURCE.agency}.
         </p>
       </div>
     </>

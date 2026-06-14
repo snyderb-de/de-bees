@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
-import { KEEPERS } from "@/lib/keepers";
+import { SOURCE } from "@/lib/keepers";
 import { BLOOM_CALENDAR, CLUBS, STATE_STATS } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Learn & Begin",
   description:
-    "Starting beekeeping in Delaware — county clubs and meetings, registering your hive with the State Apiarist, the nectar calendar, and keepers who teach.",
+    "Starting beekeeping in Delaware — county clubs and meetings, registering your hive with the State Apiarist, DriftWatch, and the Delaware nectar calendar.",
 };
-
-const mentors = KEEPERS.filter((k) => k.offerings.includes("Classes & Mentoring"));
 
 export default function LearnPage() {
   return (
@@ -26,8 +23,8 @@ export default function LearnPage() {
         <section>
           <h2 className="display title-l">County clubs &amp; meetings</h2>
           <p className="lede mt-4 max-w-2xl">
-            The Delaware Beekeepers Association meets by county. Newcomers are
-            welcome at any meeting — bring questions, leave with a mentor.
+            The Delaware Beekeepers Association meets by county. Newcomers are welcome at
+            any meeting — bring questions, leave with a mentor.
           </p>
           <ul className="mt-10 grid gap-px overflow-hidden border border-[color:var(--rule)] bg-[color:var(--rule)] md:grid-cols-3">
             {CLUBS.map((c) => (
@@ -47,25 +44,25 @@ export default function LearnPage() {
           <div>
             <h2 className="display title-l">Register your hive</h2>
             <p className="mt-5 text-[1.05rem] leading-[1.65] text-[color:var(--ink-soft)]">
-              Delaware law asks every beekeeper to register with the State
-              Apiarist — within ten days of getting bees, and once a year by the
-              end of January. It is free, it covers any number of hives, and it
-              lets the state&apos;s inspectors help you keep healthy colonies and
-              warn pesticide applicators near your bees.
+              Delaware law asks every beekeeper to register with the State Apiarist
+              (currently {SOURCE.apiarist}) — within ten days of getting bees, and once a
+              year by the end of January. It is free, it covers any number of hives, and it
+              lets the state&apos;s inspectors help you keep healthy colonies and warn
+              pesticide applicators near your bees.
             </p>
             <ul className="mt-6 space-y-3">
-              <Step n="01" t="Register online" d="Use the state's apiary registration form when you acquire bees." />
+              <Step n="01" t="Register online" d="File the state's apiary registration form when you acquire bees." />
               <Step n="02" t="Get inspected" d="The State Apiarist checks colonies for mites and disease, free of charge." />
-              <Step n="03" t="Add to DriftWatch" d="Voluntarily map your apiary so sprayers know to steer clear." />
+              <Step n="03" t="Add to DriftWatch" d="Voluntarily map your apiary so pesticide applicators know to steer clear." />
             </ul>
-            <a
-              href="https://agriculture.delaware.gov/plant-industries/honeybees/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-quiet mt-8"
-            >
-              Delaware Dept. of Agriculture ↗
-            </a>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href={SOURCE.registrationUrl} target="_blank" rel="noopener noreferrer" className="btn-gilt">
+                Register your apiary ↗
+              </a>
+              <a href={SOURCE.driftwatchUrl} target="_blank" rel="noopener noreferrer" className="btn-quiet">
+                DriftWatch ↗
+              </a>
+            </div>
           </div>
 
           <aside className="plate-frame self-start p-6">
@@ -76,6 +73,14 @@ export default function LearnPage() {
               <Stat k="Crops pollinated" v={STATE_STATS.cropValue} />
               <Stat k="Association since" v={`${STATE_STATS.associationFounded}`} />
             </dl>
+            <a
+              href={SOURCE.honeybeesUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ink-link mt-5 inline-block"
+            >
+              Dept. of Agriculture ↗
+            </a>
           </aside>
         </section>
 
@@ -104,32 +109,6 @@ export default function LearnPage() {
               </div>
             ))}
           </div>
-        </section>
-
-        {/* Mentors */}
-        <section className="mt-20">
-          <h2 className="display title-l">Keepers who teach</h2>
-          <p className="lede mt-4 max-w-2xl">
-            These keepers in the register offer classes, open-hive days, or
-            one-on-one mentoring.
-          </p>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {mentors.map((k) => (
-              <li key={k.slug}>
-                <Link
-                  href={`/keepers/${k.slug}`}
-                  className="flex items-baseline justify-between gap-3 border-b border-[color:var(--rule)] py-3 hover:text-[color:var(--oxblood)]"
-                >
-                  <span className="font-[family-name:var(--font-display)] text-[1.2rem]">
-                    {k.apiary}
-                  </span>
-                  <span className="mono text-[0.64rem] uppercase tracking-[0.1em] text-[color:var(--ink-faint)]">
-                    {k.town}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
         </section>
       </div>
     </>

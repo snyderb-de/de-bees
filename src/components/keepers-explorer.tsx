@@ -1,29 +1,25 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  ALL_OFFERINGS,
-  COUNTIES,
-  KEEPERS,
-  type County,
-  type Offering,
-} from "@/lib/keepers";
+import { COUNTIES, KEEPERS, type County } from "@/lib/keepers";
 import { KeeperPlate } from "@/components/keeper-plate";
 
 type CountyFilter = County | "All";
-type OfferingFilter = Offering | "All";
+type ServiceFilter = "All" | "Swarm removal" | "Cut-outs" | "Storefront";
 
 export function KeepersExplorer() {
   const [county, setCounty] = useState<CountyFilter>("All");
-  const [offering, setOffering] = useState<OfferingFilter>("All");
+  const [service, setService] = useState<ServiceFilter>("All");
 
   const results = useMemo(() => {
-    return KEEPERS.filter(
-      (k) =>
-        (county === "All" || k.county === county) &&
-        (offering === "All" || k.offerings.includes(offering)),
-    );
-  }, [county, offering]);
+    return KEEPERS.filter((k) => {
+      if (county !== "All" && !k.counties.includes(county)) return false;
+      if (service === "Swarm removal" && !k.services.swarm) return false;
+      if (service === "Cut-outs" && !k.services.cutout) return false;
+      if (service === "Storefront" && !(k.website || k.email)) return false;
+      return true;
+    });
+  }, [county, service]);
 
   return (
     <div>
@@ -36,9 +32,9 @@ export function KeepersExplorer() {
         />
         <Filter
           label="Offers"
-          options={["All", ...ALL_OFFERINGS] as OfferingFilter[]}
-          value={offering}
-          onChange={setOffering}
+          options={["All", "Swarm removal", "Cut-outs", "Storefront"] as ServiceFilter[]}
+          value={service}
+          onChange={setService}
         />
       </div>
 
@@ -56,7 +52,7 @@ export function KeepersExplorer() {
         <div className="border border-[color:var(--rule)] bg-[color:var(--paper-2)] p-10 text-center">
           <p className="display text-[1.5rem]">No keepers match that yet.</p>
           <p className="mt-2 text-[color:var(--ink-soft)]">
-            Loosen a filter — or if you keep bees that way,{" "}
+            Loosen a filter — or if you keep bees in Delaware,{" "}
             <a href="/get-listed" className="ink-link">get listed</a>.
           </p>
         </div>

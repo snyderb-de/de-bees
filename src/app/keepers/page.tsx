@@ -14,7 +14,7 @@ export default function KeepersPage() {
       <PageIntro
         eyebrow="The Register"
         title="Every keeper, plate by plate."
-        intro="The full record of the apiaries we keep. Filter by county, or by what a keeper offers — honey and comb, bees and queens, classes, pollination, or a swarm call when one moves into your wall."
+        intro="The full record of Delaware's registered keepers. Filter by county, or by what a keeper offers — swarm collection, a structural cut-out when bees move into a wall, or a storefront to buy from."
       />
       <div className="mx-auto max-w-[1180px] px-5 py-14 sm:px-8">
         <KeepersExplorer />

@@ -52,8 +52,9 @@ export function SiteFooter() {
           </p>
         </div>
         <p className="mono mt-4 text-[0.66rem] text-[color:var(--ink-faint)]">
-          An independent showcase. Keeper entries shown are illustrative samples.
-          Not affiliated with the Delaware Dept. of Agriculture. ·{" "}
+          An independent showcase. Listings drawn from the Delaware Dept. of
+          Agriculture&apos;s 2026 registered beekeeper lists; business contacts
+          only. Not affiliated with the Dept. of Agriculture. ·{" "}
           <a href={`mailto:${SITE.contactEmail}`} className="underline">
             {SITE.contactEmail}
           </a>

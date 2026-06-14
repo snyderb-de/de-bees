@@ -30,8 +30,31 @@ const SIDE = 8; // slab right-wall offset
 function toScreen(fx: number, fy: number) {
   return { x: OX + fx + SKEW * fy, y: OY + fy * TILT };
 }
+
+// Keepers are placed by county (we only know county, not GPS). Each pin is
+// scattered deterministically within its primary county's band via a hash of
+// the slug, so positions are stable between renders.
+const COUNTY_BANDS: Record<string, { x0: number; x1: number; y0: number; y1: number }> = {
+  "New Castle": { x0: 112, x1: 206, y0: 150, y1: 286 },
+  Kent: { x0: 110, x1: 228, y0: 318, y1: 420 },
+  Sussex: { x0: 112, x1: 230, y0: 446, y1: 532 },
+};
+
+function hash(s: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
 function keeperFlat(k: Keeper) {
-  return { x: 104 + k.pos.x * 118, y: 150 + k.pos.y * 385 };
+  const band = COUNTY_BANDS[k.counties[0]] ?? COUNTY_BANDS.Kent;
+  const h = hash(k.slug);
+  const rx = (h % 997) / 997;
+  const ry = ((h >>> 7) % 991) / 991;
+  return { x: band.x0 + rx * (band.x1 - band.x0), y: band.y0 + ry * (band.y1 - band.y0) };
 }
 
 const board = `translate(${OX},${OY}) matrix(1,0,${SKEW},${TILT},0,0)`;
@@ -272,7 +295,7 @@ function Hive({
   return (
     <Link
       href={`/keepers/${keeper.slug}`}
-      aria-label={`${keeper.apiary}, ${keeper.town} — ${keeper.hives} hives`}
+      aria-label={`${keeper.business ?? keeper.keeper} — ${keeper.counties.join(", ")} County`}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
       onFocus={onEnter}
@@ -321,8 +344,8 @@ function ActiveLabel({ keeper }: { keeper: Keeper }) {
       <line x1="0" y1="2" x2="0" y2="14" stroke="var(--ink)" strokeWidth="1" />
       <g transform="translate(0,-14)">
         <rect x="-74" y="-16" width="148" height="30" fill="var(--paper)" stroke="var(--ink)" strokeWidth="1" />
-        <text x="0" y="-2" textAnchor="middle" className="dmap-flag-name">{keeper.apiary}</text>
-        <text x="0" y="9" textAnchor="middle" className="dmap-flag-sub">{keeper.town}, {keeper.county} · {keeper.hives} hives</text>
+        <text x="0" y="-2" textAnchor="middle" className="dmap-flag-name">{keeper.business ?? keeper.keeper}</text>
+        <text x="0" y="9" textAnchor="middle" className="dmap-flag-sub">{keeper.counties.join(" · ")} · {keeper.services.cutout ? "swarms + cut-outs" : "swarms"}</text>
       </g>
     </g>
   );

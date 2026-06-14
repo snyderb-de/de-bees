@@ -3,10 +3,10 @@ import { EngravedBee } from "@/components/engraved-bee";
 import { DelawareMap } from "@/components/delaware-map";
 import { KeeperPlate } from "@/components/keeper-plate";
 import { Reveal } from "@/components/reveal";
-import { getKeeper, KEEPERS, totalHives } from "@/lib/keepers";
+import { getKeeper, KEEPERS, namedApiaries } from "@/lib/keepers";
 import { BLOOM_CALENDAR, COUNTY_INFO, STATE_STATS } from "@/lib/site";
 
-const FEATURED = ["tulip-poplar-farm", "murderkill-river", "hockessin-hollow"]
+const FEATURED = ["douglas-bee-apiary", "big-joes-honey", "carey-apiary"]
   .map(getKeeper)
   .filter((k): k is NonNullable<typeof k> => Boolean(k));
 
@@ -71,7 +71,7 @@ export default function Home() {
           <Figure value={STATE_STATS.colonies.toLocaleString()} label="Honeybee colonies in the state" />
           <Figure value={STATE_STATS.industryValue} label="Annual honey industry" />
           <Figure value={STATE_STATS.cropValue} label="Crops pollinated each year" />
-          <Figure value={`${KEEPERS.length}`} label={`Keepers in the register · ${totalHives()} hives`} />
+          <Figure value={`${KEEPERS.length}`} label="Registered keepers in the directory" />
         </div>
       </section>
 
@@ -92,7 +92,7 @@ export default function Home() {
         </Reveal>
 
         <Reveal>
-          <DelawareMap keepers={KEEPERS} />
+          <DelawareMap keepers={namedApiaries()} />
         </Reveal>
 
         <div className="mt-8 grid gap-6 md:grid-cols-3">

@@ -101,7 +101,6 @@ export const NAV = [
   { href: "/keepers", label: "The Register" },
   { href: "/map", label: "The Map" },
   { href: "/services", label: "Swarms & Services" },
-  { href: "/awards", label: "Premiums" },
   { href: "/learn", label: "Learn" },
   { href: "/about", label: "About" },
 ];

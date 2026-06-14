@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DelawareMap } from "@/components/delaware-map";
-import { MethodBadge, OfferingTag } from "@/components/badges";
-import { VarietalEntry } from "@/components/honey";
-import { getKeeper, KEEPERS, toRoman, plateNo } from "@/lib/keepers";
+import { ServiceBadges } from "@/components/badges";
+import { getKeeper, KEEPERS, SOURCE, toRoman, plateNo } from "@/lib/keepers";
 
 export function generateStaticParams() {
   return KEEPERS.map((k) => ({ slug: k.slug }));
@@ -18,9 +17,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const k = getKeeper(slug);
   if (!k) return { title: "Keeper not found" };
+  const title = k.business ?? k.keeper;
   return {
-    title: `${k.apiary} — ${k.town}, ${k.county}`,
-    description: k.blurb,
+    title: `${title} — ${k.counties.join(", ")}`,
+    description: `${title}, a registered Delaware beekeeper serving ${k.counties.join(", ")} County. ${
+      k.services.swarm ? "Swarm removal" : ""
+    }${k.services.cutout ? ", structural cut-outs" : ""}.`,
   };
 }
 
@@ -34,6 +36,11 @@ export default async function KeeperPage({
   if (!keeper) notFound();
 
   const n = plateNo(keeper.slug);
+  const title = keeper.business ?? keeper.keeper;
+  const services = [
+    keeper.services.swarm && "collects honeybee swarms",
+    keeper.services.cutout && "performs structural cut-outs (which may carry a fee)",
+  ].filter(Boolean);
 
   return (
     <article className="mx-auto max-w-[1180px] px-5 pt-12 pb-20 sm:px-8">
@@ -41,130 +48,126 @@ export default async function KeeperPage({
         ← The Register
       </Link>
 
-      {/* Plate header */}
       <header className="mt-8">
         <p className="eyebrow">
-          Plate {toRoman(n)} · {keeper.county} County
+          Plate {toRoman(n)} · {keeper.counties.join(" · ")} County
         </p>
-        <h1 className="display title-l mt-4">{keeper.apiary}</h1>
+        <h1 className="display title-l mt-4">{title}</h1>
         <p className="mono mt-3 text-[0.8rem] uppercase tracking-[0.14em] text-[color:var(--ink-soft)]">
-          {keeper.keeper} · {keeper.town}, Delaware · established {keeper.established}
+          {keeper.business ? `Kept by ${keeper.keeper}` : "Registered keeper"} · Delaware
         </p>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {keeper.methods.map((m) => (
-            <MethodBadge key={m} label={m} />
-          ))}
+        <div className="mt-5">
+          <ServiceBadges services={keeper.services} />
         </div>
       </header>
 
       <hr className="hairline mt-10" />
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[1.55fr_1fr]">
-        {/* Main column */}
         <div>
-          <p className="lede">{keeper.story}</p>
+          <p className="lede">
+            {title} is a beekeeper registered with the {SOURCE.agency} for{" "}
+            {keeper.counties.length > 1 ? "the" : ""}{" "}
+            {joinCounties(keeper.counties)}{" "}
+            {keeper.counties.length > 1 ? "counties" : "County"}, and{" "}
+            {services.join(" and ")}.
+          </p>
 
-          {/* Honey */}
-          <section className="mt-14">
-            <h2 className="eyebrow">The honey</h2>
-            <h3 className="display title-m mt-3">Varietals &amp; colour</h3>
-            <ul className="mt-6">
-              {keeper.varietals.map((v) => (
-                <VarietalEntry key={v.name} v={v} />
-              ))}
-            </ul>
+          <section className="mt-12">
+            <h2 className="eyebrow">What that means</h2>
+            <div className="mt-4 space-y-4 text-[1.02rem] leading-[1.65] text-[color:var(--ink-soft)]">
+              {keeper.services.swarm && (
+                <p>
+                  <strong className="text-[color:var(--ink)]">Swarm collection.</strong>{" "}
+                  A swarm is a clustered ball of bees that has left a hive to find a new
+                  home — gentle, temporary, and usually collected free of charge. If you
+                  spot one, don&apos;t spray it; note where it is and how high, and reach a
+                  keeper.
+                </p>
+              )}
+              {keeper.services.cutout && (
+                <p>
+                  <strong className="text-[color:var(--ink)]">Structural cut-outs.</strong>{" "}
+                  When a colony has built comb inside a wall, soffit, or tree, removing it
+                  is skilled work that opens the structure and rehomes the bees.{" "}
+                  {SOURCE.feeNote}
+                </p>
+              )}
+            </div>
           </section>
 
-          {/* Awards */}
-          {keeper.awards.length > 0 && (
-            <section className="mt-14">
-              <h2 className="eyebrow">Premiums &amp; honours</h2>
-              <ul className="mt-6 space-y-4">
-                {keeper.awards.map((a, i) => (
-                  <li
-                    key={i}
-                    className="flex items-baseline gap-4 border-t border-[color:var(--rule-soft)] pt-4"
-                  >
-                    <span className="plate-no shrink-0 text-[1.1rem]">{a.year}</span>
-                    <div>
-                      <p className="font-[family-name:var(--font-display)] text-[1.2rem]">
-                        <span style={{ color: "var(--oxblood)" }}>{a.place}</span> — {a.title}
-                      </p>
-                      <p className="mono text-[0.7rem] uppercase tracking-[0.12em] text-[color:var(--ink-faint)]">
-                        {a.body}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
+          <p className="mono mt-12 border-t border-[color:var(--rule)] pt-6 text-[0.7rem] leading-[1.7] text-[color:var(--ink-faint)]">
+            Listing drawn from the {SOURCE.agency}&apos;s {SOURCE.updated} registered
+            beekeeper lists. Are you {title} and want this entry corrected, expanded with
+            your honey and products, or removed?{" "}
+            <Link href="/get-listed" className="underline">
+              Get in touch
+            </Link>
+            .
+          </p>
         </div>
 
-        {/* Sidebar */}
         <aside className="space-y-8">
+          <div className="plate-frame p-6">
+            <h2 className="eyebrow mb-4">Contact</h2>
+            {keeper.website || keeper.email ? (
+              <div className="space-y-3">
+                {keeper.website && (
+                  <a
+                    href={keeper.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-gilt w-full justify-center"
+                  >
+                    Visit storefront ↗
+                  </a>
+                )}
+                {keeper.email && (
+                  <a href={`mailto:${keeper.email}`} className="ink-link block break-all">
+                    {keeper.email}
+                  </a>
+                )}
+              </div>
+            ) : (
+              <p className="text-[0.92rem] leading-[1.55] text-[color:var(--ink-soft)]">
+                Contact details are kept on the state&apos;s official list (we publish
+                business contacts only).{" "}
+                <a
+                  href={keeper.services.cutout ? SOURCE.cutoutListUrl : SOURCE.swarmListUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ink-link"
+                >
+                  Open the state list ↗
+                </a>
+              </p>
+            )}
+          </div>
+
           <div className="plate-frame p-6">
             <h2 className="eyebrow mb-4">At a glance</h2>
             <dl className="space-y-3 text-[0.92rem]">
-              <Row k="County" v={`${keeper.county}`} />
-              <Row k="Home town" v={keeper.town} />
-              <Row k="Established" v={`${keeper.established}`} />
-              <Row k="Colonies" v={`${keeper.hives} hives`} />
-              <Row k="Registered" v={keeper.registered ? "✦ With the State Apiarist" : "—"} />
+              <Row k="Counties" v={keeper.counties.join(", ")} />
+              <Row k="Swarm removal" v={keeper.services.swarm ? "Yes" : "—"} />
+              <Row k="Cut-outs" v={keeper.services.cutout ? "Yes" : "—"} />
+              <Row k="Registered" v={`✦ ${SOURCE.updated}`} />
             </dl>
           </div>
 
           <div>
-            <h2 className="eyebrow mb-4">Offered here</h2>
-            <div className="flex flex-wrap gap-x-4 gap-y-2">
-              {keeper.offerings.map((o) => (
-                <OfferingTag key={o} label={o} />
-              ))}
-            </div>
-          </div>
-
-          {keeper.store && (
-            <a
-              href={keeper.store.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gilt w-full justify-center"
-            >
-              {keeper.store.label} ↗
-            </a>
-          )}
-
-          {keeper.swarm && (
-            <div className="border-l-2 border-[color:var(--oxblood)] bg-[color:var(--paper-2)] p-5">
-              <h2 className="mono text-[0.7rem] uppercase tracking-[0.16em] text-[color:var(--oxblood)]">
-                Swarm &amp; cut-out service
-              </h2>
-              <p className="mt-2 text-[0.92rem] text-[color:var(--ink-soft)]">
-                {[
-                  keeper.swarm.swarms && "Collects loose swarms",
-                  keeper.swarm.cutOuts && "Performs structural cut-outs",
-                ]
-                  .filter(Boolean)
-                  .join(" · ")}
-                .
-              </p>
-              <p className="mt-2 text-[0.92rem] text-[color:var(--ink-soft)]">
-                Serves {keeper.swarm.area}.
-              </p>
-              <Link href="/services" className="ink-link mt-3 inline-block">
-                All swarm keepers →
-              </Link>
-            </div>
-          )}
-
-          <div>
-            <h2 className="eyebrow mb-3">Where</h2>
+            <h2 className="eyebrow mb-3">Where they serve</h2>
             <DelawareMap keepers={[keeper]} caption={false} />
           </div>
         </aside>
       </div>
     </article>
   );
+}
+
+function joinCounties(counties: string[]): string {
+  if (counties.length === 1) return counties[0];
+  if (counties.length === 2) return `${counties[0]} and ${counties[1]}`;
+  return `${counties.slice(0, -1).join(", ")}, and ${counties[counties.length - 1]}`;
 }
 
 function Row({ k, v }: { k: string; v: string }) {

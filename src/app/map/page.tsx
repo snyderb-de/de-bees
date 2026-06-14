@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
 import { DelawareMap } from "@/components/delaware-map";
-import { KEEPERS, keepersByCounty } from "@/lib/keepers";
+import { keepersInCounty, namedApiaries } from "@/lib/keepers";
 import { COUNTY_INFO } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "The Map",
   description:
-    "An isometric map of Delaware's apiaries — every keeper as a hive on the board, county by county, from the Twelve-Mile Circle to the Maryland line.",
+    "An isometric map of Delaware's registered beekeepers — named apiaries as hives on the board, county by county, from the Twelve-Mile Circle to the Maryland line.",
 };
 
 export default function MapPage() {
@@ -17,18 +17,17 @@ export default function MapPage() {
       <PageIntro
         eyebrow="Figure 1 — a survey of the apiaries"
         title="The whole state, hive by hive."
-        intro="A little model of Delaware. Each box is a working apiary; tap one to visit its plate. North is the Twelve-Mile Circle; south, the Transpeninsular Line and the Maryland border."
+        intro="A little model of Delaware. Each hive is a registered apiary with a business name; tap one to visit its plate. Pins are placed by county — the directory below lists every registered keeper, named or not."
       />
 
       <div className="mx-auto max-w-[1180px] px-5 py-12 sm:px-8">
-        <DelawareMap keepers={KEEPERS} />
+        <DelawareMap keepers={namedApiaries()} />
       </div>
 
-      {/* County rolls */}
       <div className="mx-auto max-w-[1180px] px-5 pb-20 sm:px-8">
         <div className="grid gap-10 md:grid-cols-3">
           {COUNTY_INFO.map((c) => {
-            const list = keepersByCounty(c.name);
+            const list = keepersInCounty(c.name);
             return (
               <section key={c.name}>
                 <div className="flex items-baseline justify-between border-b border-[color:var(--rule)] pb-3">
@@ -47,11 +46,11 @@ export default function MapPage() {
                         href={`/keepers/${k.slug}`}
                         className="flex items-baseline justify-between gap-3 border-b border-[color:var(--rule-soft)] py-2 transition-colors hover:text-[color:var(--oxblood)]"
                       >
-                        <span className="font-[family-name:var(--font-display)] text-[1.1rem]">
-                          {k.apiary}
+                        <span className="font-[family-name:var(--font-display)] text-[1.05rem]">
+                          {k.business ?? k.keeper}
                         </span>
-                        <span className="mono text-[0.66rem] uppercase tracking-[0.1em] text-[color:var(--ink-faint)]">
-                          {k.town}
+                        <span className="mono text-[0.62rem] uppercase tracking-[0.1em] text-[color:var(--ink-faint)]">
+                          {k.services.cutout ? "swarm · cut-out" : "swarm"}
                         </span>
                       </Link>
                     </li>
