@@ -156,7 +156,7 @@ export default async function KeeperPage({
 
           <div>
             <h2 className="eyebrow mb-3">Where they serve</h2>
-            <DelawareMap keepers={[keeper]} caption={false} />
+            <DelawareMap keepers={[keeper]} caption={false} focus />
           </div>
         </aside>
       </div>
