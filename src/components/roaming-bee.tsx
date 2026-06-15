@@ -136,30 +136,71 @@ export function RoamingBee() {
   return (
     <div ref={ref} className="roaming-bee" aria-hidden>
       <svg width={BW} height={BH} viewBox="0 0 64 40" fill="none">
-        {/* abdomen + stripes */}
-        <ellipse cx="25" cy="23" rx="17" ry="10.5" fill="#caa24a" stroke="var(--ink)" strokeWidth="1.4" />
-        <g stroke="var(--ink)" strokeWidth="1.4">
-          <line x1="17" y1="15" x2="15" y2="31" />
-          <line x1="24" y1="13.5" x2="23" y2="32.5" />
-          <line x1="31" y1="14" x2="31" y2="32" />
+        <defs>
+          {/* lit from top-left → rounds the body */}
+          <linearGradient id="rb-body" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#f4cd76" />
+            <stop offset="0.45" stopColor="#e0a838" />
+            <stop offset="1" stopColor="#a9761a" />
+          </linearGradient>
+          <radialGradient id="rb-sheen" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stopColor="#fff3d6" stopOpacity="0.85" />
+            <stop offset="1" stopColor="#fff3d6" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="rb-head" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#403a30" />
+            <stop offset="1" stopColor="#191610" />
+          </linearGradient>
+          <linearGradient id="rb-wing" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#fdf8ec" stopOpacity="0.92" />
+            <stop offset="1" stopColor="#dfe7ec" stopOpacity="0.5" />
+          </linearGradient>
+        </defs>
+
+        {/* soft seat where the wings meet the back → depth */}
+        <ellipse cx="27" cy="16" rx="13" ry="5" fill="#6b4a12" opacity="0.25" />
+
+        {/* abdomen: rounded, gradient-lit */}
+        <ellipse cx="25" cy="23" rx="17" ry="10.5" fill="url(#rb-body)" stroke="var(--ink)" strokeWidth="1.2" />
+        {/* fuzzy fur halo */}
+        <ellipse cx="25" cy="22.4" rx="17.6" ry="11.2" fill="none" stroke="#f0d390" strokeOpacity="0.55" strokeWidth="1" strokeDasharray="0.6 2.1" />
+        {/* under-belly shadow */}
+        <ellipse cx="25" cy="27.5" rx="13.5" ry="4.8" fill="#7a4e0e" opacity="0.34" />
+        {/* curved wrap stripes + sheen grooves */}
+        <g strokeLinecap="round" fill="none">
+          <path d="M16.5,15.5 C15,20 15,26 17.5,30.8" stroke="#41310f" strokeWidth="2.3" />
+          <path d="M23,13.6 C22,22 22,27 23.2,32.2" stroke="#41310f" strokeWidth="2.4" />
+          <path d="M30,14 C30.2,22 30,27 30.6,32" stroke="#41310f" strokeWidth="2.2" />
+          <path d="M18,15.5 C16.6,20 16.6,26 19,30.6" stroke="#f3d488" strokeOpacity="0.5" strokeWidth="0.7" />
+          <path d="M24.4,13.7 C23.4,22 23.4,27 24.6,32" stroke="#f3d488" strokeOpacity="0.5" strokeWidth="0.7" />
         </g>
+        {/* specular highlight */}
+        <ellipse cx="20" cy="18" rx="8.5" ry="3.2" fill="url(#rb-sheen)" transform="rotate(-12 20 18)" />
         {/* stinger */}
-        <path d="M8,23 L2,23" stroke="var(--ink)" strokeWidth="1.4" strokeLinecap="round" />
-        {/* head + eye + antennae */}
-        <circle cx="46" cy="23" r="7" fill="#2a2620" stroke="var(--ink)" strokeWidth="1.2" />
-        <circle cx="48" cy="21" r="1.6" fill="#efe7d3" />
-        <path d="M50,18 C55,12 58,11 60,9" stroke="var(--ink)" strokeWidth="1.2" strokeLinecap="round" />
-        <path d="M50,21 C56,18 59,18 62,17" stroke="var(--ink)" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M8.5,23.5 L2.5,24" stroke="var(--ink)" strokeWidth="1.5" strokeLinecap="round" />
+
         {/* legs */}
-        <g stroke="var(--ink)" strokeWidth="1" strokeLinecap="round">
+        <g stroke="var(--ink)" strokeWidth="1.1" strokeLinecap="round">
           <path d="M22,32 l-3,6" />
           <path d="M28,33 l1,6" />
-          <path d="M34,32 l4,6" />
+          <path d="M34,31.5 l4,6.5" />
         </g>
-        {/* wings (flutter) */}
+
+        {/* head: rounded, with a cute catch-lit eye + club antennae */}
+        <circle cx="46" cy="23" r="7" fill="url(#rb-head)" stroke="var(--ink)" strokeWidth="1" />
+        <circle cx="47.5" cy="22" r="2.5" fill="#f4ecd6" />
+        <circle cx="48" cy="22.3" r="1.5" fill="#16130d" />
+        <circle cx="48.6" cy="21.6" r="0.6" fill="#ffffff" fillOpacity="0.95" />
+        <path d="M50,18 C55,12 58,11 60,9" stroke="var(--ink)" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M50,21 C56,18 59,18 62,17" stroke="var(--ink)" strokeWidth="1.2" strokeLinecap="round" />
+        <circle cx="60" cy="9" r="1.3" fill="#e0a838" stroke="var(--ink)" strokeWidth="0.7" />
+        <circle cx="62" cy="17" r="1.2" fill="#e0a838" stroke="var(--ink)" strokeWidth="0.7" />
+
+        {/* wings: gradient + a faint vein, fluttering */}
         <g className="rb-wings">
-          <ellipse className="rb-wing" cx="30" cy="9" rx="13" ry="7" fill="#fbf5e6" fillOpacity="0.78" stroke="var(--ink)" strokeWidth="1" />
-          <ellipse className="rb-wing rb-wing-2" cx="22" cy="11" rx="10" ry="6" fill="#fbf5e6" fillOpacity="0.68" stroke="var(--ink)" strokeWidth="1" />
+          <ellipse className="rb-wing" cx="30" cy="9" rx="13" ry="7" fill="url(#rb-wing)" stroke="var(--ink)" strokeWidth="0.9" />
+          <path className="rb-wing" d="M21,9 C25,5.8 33,5.8 40,8.2" stroke="#cdd6dd" strokeOpacity="0.7" strokeWidth="0.5" fill="none" strokeLinecap="round" />
+          <ellipse className="rb-wing rb-wing-2" cx="22" cy="11" rx="10" ry="6" fill="url(#rb-wing)" stroke="var(--ink)" strokeWidth="0.9" />
         </g>
       </svg>
     </div>
