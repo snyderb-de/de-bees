@@ -1,29 +1,51 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { COUNTIES, KEEPERS, type County } from "@/lib/keepers";
+import { COUNTIES, hasStorefront, keeperMatches, KEEPERS, type County } from "@/lib/keepers";
 import { KeeperPlate } from "@/components/keeper-plate";
 
 type CountyFilter = County | "All";
-type ServiceFilter = "All" | "Swarm removal" | "Cut-outs" | "Storefront";
+type OfferFilter = "All" | "Buy honey" | "Swarm removal" | "Cut-outs";
 
 export function KeepersExplorer() {
   const [county, setCounty] = useState<CountyFilter>("All");
-  const [service, setService] = useState<ServiceFilter>("All");
+  const [offer, setOffer] = useState<OfferFilter>("All");
+  const [query, setQuery] = useState("");
 
   const results = useMemo(() => {
     return KEEPERS.filter((k) => {
       if (county !== "All" && !k.counties.includes(county)) return false;
-      if (service === "Swarm removal" && !k.services.swarm) return false;
-      if (service === "Cut-outs" && !k.services.cutout) return false;
-      if (service === "Storefront" && !(k.website || k.email)) return false;
+      if (offer === "Buy honey" && !hasStorefront(k)) return false;
+      if (offer === "Swarm removal" && !k.services.swarm) return false;
+      if (offer === "Cut-outs" && !k.services.cutout) return false;
+      if (!keeperMatches(k, query)) return false;
       return true;
     });
-  }, [county, service]);
+  }, [county, offer, query]);
+
+  const reset = () => {
+    setCounty("All");
+    setOffer("All");
+    setQuery("");
+  };
+  const filtered = county !== "All" || offer !== "All" || query.trim() !== "";
 
   return (
     <div>
-      <div className="mb-10 space-y-5">
+      <div className="mb-8 space-y-5">
+        <label className="relative block">
+          <span className="sr-only">Search keepers by name or town</span>
+          <SearchGlyph />
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search by keeper, apiary, or town…"
+            className="dgl-input !pl-10"
+            autoComplete="off"
+          />
+        </label>
+
         <Filter
           label="County"
           options={["All", ...COUNTIES] as CountyFilter[]}
@@ -32,15 +54,22 @@ export function KeepersExplorer() {
         />
         <Filter
           label="Offers"
-          options={["All", "Swarm removal", "Cut-outs", "Storefront"] as ServiceFilter[]}
-          value={service}
-          onChange={setService}
+          options={["All", "Buy honey", "Swarm removal", "Cut-outs"] as OfferFilter[]}
+          value={offer}
+          onChange={setOffer}
         />
       </div>
 
-      <p className="mono mb-6 text-[0.72rem] uppercase tracking-[0.16em] text-[color:var(--ink-faint)]">
-        {results.length} {results.length === 1 ? "keeper" : "keepers"} in the register
-      </p>
+      <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+        <p className="mono text-[0.72rem] uppercase tracking-[0.16em] text-[color:var(--ink-soft)]">
+          {results.length} {results.length === 1 ? "keeper" : "keepers"} in the register
+        </p>
+        {filtered && (
+          <button type="button" onClick={reset} className="ink-link">
+            Clear filters ✕
+          </button>
+        )}
+      </div>
 
       {results.length > 0 ? (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -52,7 +81,10 @@ export function KeepersExplorer() {
         <div className="border border-[color:var(--rule)] bg-[color:var(--paper-2)] p-10 text-center">
           <p className="display text-[1.5rem]">No keepers match that yet.</p>
           <p className="mt-2 text-[color:var(--ink-soft)]">
-            Loosen a filter — or if you keep bees in Delaware,{" "}
+            <button type="button" onClick={reset} className="ink-link">
+              Clear the filters
+            </button>{" "}
+            — or if you keep bees in Delaware,{" "}
             <a href="/get-listed" className="ink-link">get listed</a>.
           </p>
         </div>
@@ -97,5 +129,21 @@ function Filter<T extends string>({
         })}
       </div>
     </div>
+  );
+}
+
+function SearchGlyph() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden
+      className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[color:var(--ink-faint)]"
+    >
+      <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="m11 11 4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
   );
 }
