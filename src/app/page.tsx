@@ -1,6 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
-import beePlate from "@/assets/bee-plate.jpg";
+import { PlateShow } from "@/components/plate-show";
 import { DelawareMap } from "@/components/delaware-map";
 import { KeeperPlate } from "@/components/keeper-plate";
 import { Reveal } from "@/components/reveal";
@@ -52,25 +51,7 @@ export default function Home() {
         {/* the plate */}
         <div className="relative mx-auto w-full max-w-[420px]">
           <div className="plate-frame px-6 py-8">
-            <p className="mono mb-3 text-center text-[0.66rem] uppercase tracking-[0.28em] text-[color:var(--oxblood)]">
-              Plate I
-            </p>
-            <Image
-              src={beePlate}
-              alt="Hand-coloured copperplate engraving of the honeybee — worker, queen and drone with comb — from Curtis's British Entomology"
-              placeholder="blur"
-              sizes="(min-width: 1024px) 320px, 80vw"
-              className="mx-auto block h-auto w-full max-w-[300px] border border-[color:var(--rule)] shadow-[0_2px_10px_rgba(0,0,0,0.08)]"
-            />
-            <p
-              className="mt-3 text-center font-[family-name:var(--font-display)] italic text-[color:var(--ink-soft)]"
-              style={{ fontVariationSettings: '"opsz" 30, "SOFT" 40' }}
-            >
-              Apis mellifera — the western honeybee
-            </p>
-            <p className="mono mt-1 text-center text-[0.6rem] uppercase tracking-[0.16em] text-[color:var(--ink-faint)]">
-              Curtis, British Entomology, 1839
-            </p>
+            <PlateShow />
           </div>
         </div>
       </section>
