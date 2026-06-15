@@ -97,7 +97,7 @@ export function PlateShow() {
             placeholder="blur"
             priority={idx === 0}
             aria-hidden={idx !== i}
-            className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-[1600ms] ease-in-out ${
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1600ms] ease-in-out ${
               idx === i ? "opacity-100" : "opacity-0"
             }`}
           />
