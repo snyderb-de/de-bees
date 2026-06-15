@@ -352,6 +352,194 @@
 .dmap-note {
   color: var(--ink-faint);
 }
+
+/* ---- Explore locator: toolbar, clusters, preview popup ---------------- */
+.dmap-wrap {
+  position: relative;
+}
+.dmap-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  margin-bottom: 0.9rem;
+}
+.dmap-near {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 0.5rem 0.85rem;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.dmap-near:hover:not(:disabled),
+.dmap-near:focus-visible:not(:disabled) {
+  background: var(--honey-bright);
+  border-color: var(--honey-bright);
+  color: var(--ink);
+}
+.dmap-near:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.dmap-jump {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.dmap-jump-btn {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.dmap-jump-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.dmap-jump-btn[aria-pressed="true"] {
+  background: var(--oxblood);
+  border-color: var(--oxblood);
+  color: var(--paper);
+}
+.dmap-locnote {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+.dmap-zoomhint {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  z-index: 450;
+  pointer-events: none;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  border: 1px solid var(--rule);
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+.county-cluster {
+  background: transparent !important;
+  border: 0 !important;
+}
+.county-cluster .cc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--honey) 88%, var(--ink));
+  border: 2px solid var(--ink);
+  box-shadow: 0 6px 16px -8px rgba(31, 32, 28, 0.7);
+  color: var(--paper);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.county-cluster .cc:hover {
+  transform: scale(1.06);
+}
+.county-cluster .cc b {
+  font-family: var(--font-display), serif;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.county-cluster .cc i {
+  font-family: var(--font-mono), monospace;
+  font-style: normal;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.county-label {
+  background: transparent !important;
+  border: 0 !important;
+}
+.county-label span {
+  display: block;
+  text-align: center;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-shadow: 0 1px 0 var(--paper), 0 0 4px var(--paper);
+  white-space: nowrap;
+}
+.hive-pop-wrap .leaflet-popup-content-wrapper {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 0 10px 24px -14px rgba(31, 32, 28, 0.7);
+}
+.hive-pop-wrap .leaflet-popup-content {
+  margin: 0;
+}
+.hive-pop-wrap .leaflet-popup-tip {
+  background: var(--paper);
+  border: 1px solid var(--ink);
+}
+.hive-pop {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.7rem 0.8rem;
+  min-width: 160px;
+}
+.hive-pop strong {
+  font-family: var(--font-display), serif;
+  font-weight: 340;
+  font-size: 1.05rem;
+}
+.hive-pop-sub {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.hive-pop-visit {
+  margin-top: 0.3rem;
+  align-self: flex-start;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.hive-pop-visit:hover,
+.hive-pop-visit:focus-visible {
+  background: var(--honey-bright);
+  border-color: var(--honey-bright);
+  color: var(--ink);
+}
 .dmap-stage {
   position: relative;
   width: 100%;
@@ -652,5 +840,14 @@ select.dgl-input {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  .county-cluster .cc,
+  .dmap-near,
+  .dmap-jump-btn,
+  .hive-pop-visit {
+    transition: none;
+  }
+  .county-cluster .cc:hover {
+    transform: none;
   }
 }

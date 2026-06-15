@@ -17,11 +17,11 @@ export default function MapPage() {
       <PageIntro
         eyebrow="Figure 1 — a survey of the apiaries"
         title="The whole state, hive by hive."
-        intro="Every registered Delaware keeper, pinned on the map. Locations are shown by county; tap a hive to visit that keeper's plate. The directory below lists everyone by county."
+        intro="Every registered Delaware keeper, pinned on the map. Start with the county bubbles, use Near me to jump to yours, or zoom in to see each hive — tap one to preview the keeper. The directory below lists everyone by county."
       />
 
       <div className="mx-auto max-w-[1180px] px-5 py-12 sm:px-8">
-        <DelawareMap keepers={KEEPERS} />
+        <DelawareMap keepers={KEEPERS} explore />
       </div>
 
       <div className="mx-auto max-w-[1180px] px-5 pb-20 sm:px-8">

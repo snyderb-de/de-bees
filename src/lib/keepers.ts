@@ -401,6 +401,26 @@ export function getKeeper(slug: string): Keeper | undefined {
   return KEEPERS.find((k) => k.slug === slug);
 }
 
+/**
+ * Whether you can actually buy a keeper's honey — they publish a shop, a farm
+ * address, or a market. The state lists don't tag "sells honey" directly, so a
+ * public storefront is the honest proxy. (True per-product tags arrive with
+ * self-serve keeper submissions.)
+ */
+export function hasStorefront(k: Keeper): boolean {
+  return Boolean(k.website || k.address || (k.whereToBuy && k.whereToBuy.length));
+}
+
+/** Case-insensitive match across a keeper's name, business, counties, and place. */
+export function keeperMatches(k: Keeper, query: string): boolean {
+  const q = query.trim().toLowerCase();
+  if (!q) return true;
+  const hay = [k.keeper, k.business ?? "", k.counties.join(" "), k.address ?? "", (k.whereToBuy ?? []).join(" ")]
+    .join(" ")
+    .toLowerCase();
+  return hay.includes(q);
+}
+
 export function keepersInCounty(county: County): Keeper[] {
   return KEEPERS.filter((k) => k.counties.includes(county));
 }
