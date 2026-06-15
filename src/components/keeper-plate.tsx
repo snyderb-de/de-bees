@@ -11,7 +11,7 @@ export function KeeperPlate({ keeper }: { keeper: Keeper }) {
   return (
     <Link
       href={`/keepers/${keeper.slug}`}
-      className="group relative flex flex-col bg-[color:var(--paper-2)] p-6 transition-all duration-300 hover:-translate-y-1"
+      className="group relative flex flex-col bg-[color:var(--paper-2)] p-6 transition-transform duration-300 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
       style={{ boxShadow: "inset 0 0 0 1px var(--rule), inset 0 0 0 4px var(--paper-2), inset 0 0 0 5px var(--rule-soft)" }}
     >
       <div className="flex items-center justify-between">
@@ -37,8 +37,8 @@ export function KeeperPlate({ keeper }: { keeper: Keeper }) {
         <div className="flex items-center justify-between">
           <span className="ink-link">Read the plate →</span>
           {hasContact && (
-            <span className="mono text-[0.6rem] uppercase tracking-[0.12em] text-[color:var(--honey)]">
-              ✦ Storefront
+            <span className="mono text-[0.6rem] uppercase tracking-[0.12em] text-[color:var(--ink-soft)]">
+              <span aria-hidden style={{ color: "var(--honey)" }}>✦</span> Storefront
             </span>
           )}
         </div>

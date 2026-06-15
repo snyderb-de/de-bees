@@ -50,6 +50,7 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={active ? "page" : undefined}
                 className="mono text-[0.72rem] uppercase tracking-[0.16em] transition-colors hover:text-[color:var(--oxblood)]"
                 style={{ color: active ? "var(--oxblood)" : "var(--ink)" }}
               >
@@ -65,7 +66,7 @@ export function SiteHeader() {
         {/* mobile toggle */}
         <button
           type="button"
-          className="lg:hidden inline-flex h-10 w-10 items-center justify-center border border-[color:var(--rule)]"
+          className="lg:hidden inline-flex h-11 w-11 items-center justify-center border border-[color:var(--rule)]"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}

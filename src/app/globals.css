@@ -15,7 +15,7 @@
 
   --ink: #1f2e29; /* green-black printer's ink */
   --ink-soft: #51604f;
-  --ink-faint: #8a9079;
+  --ink-faint: #605d47; /* faint metadata ink — darkened to clear WCAG AA (≥4.5:1) on paper & paper-2 */
 
   --honey: #bd831b; /* gilt accent, used sparingly */
   --honey-bright: #dd9e2c;
@@ -286,8 +286,9 @@
 }
 .btn-gilt:hover,
 .btn-gilt:focus-visible {
-  background: var(--honey);
-  border-color: var(--honey);
+  /* honey-bright lifts ink-on-gilt to 6.08:1 (plain honey was 4.34, under AA) */
+  background: var(--honey-bright);
+  border-color: var(--honey-bright);
   color: var(--ink);
 }
 
