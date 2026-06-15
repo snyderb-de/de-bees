@@ -1,17 +1,18 @@
 import type { NextConfig } from "next";
 
-// Project-page deploy on GitHub Pages serves the site from /<repo>.
-// We only apply the basePath/assetPrefix for production builds so local
-// `next dev` keeps working at the root.
+// The GitHub Pages project site serves from /<repo>, so that build needs a
+// basePath/assetPrefix. Vercel and local `next dev` serve from the root and
+// must NOT have it. The Pages workflow sets GITHUB_PAGES=true; everywhere else
+// (Vercel, dev) leaves it unset.
 const repo = "de-bees";
-const isProd = process.env.NODE_ENV === "production";
+const isPages = process.env.GITHUB_PAGES === "true";
 
 const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
-  basePath: isProd ? `/${repo}` : "",
-  assetPrefix: isProd ? `/${repo}/` : "",
+  basePath: isPages ? `/${repo}` : "",
+  assetPrefix: isPages ? `/${repo}/` : "",
 };
 
 export default nextConfig;
