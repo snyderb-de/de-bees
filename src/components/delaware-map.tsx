@@ -225,7 +225,10 @@ export function DelawareMap({
               for (const c of COUNTIES) {
                 const [la, ln] = CENTROIDS[c];
                 const d = (la - pos.coords.latitude) ** 2 + (ln - pos.coords.longitude) ** 2;
-                if (d < bestD) (bestD = d), (best = c);
+                if (d < bestD) {
+                  bestD = d;
+                  best = c;
+                }
               }
               api.jump(best);
               setNote(`Closest county: ${best}`);

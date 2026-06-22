@@ -64,12 +64,10 @@ const HOLD_MS = 6500;
 
 export function PlateShow() {
   const [i, setI] = useState(0);
-  const [animate, setAnimate] = useState(true);
 
   useEffect(() => {
     // Calm by default, but honour a reduced-motion preference: hold on one plate.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setAnimate(false);
       return;
     }
     const t = setInterval(() => setI((n) => (n + 1) % PLATES.length), HOLD_MS);
@@ -82,7 +80,7 @@ export function PlateShow() {
     <>
       <p
         key={`n${i}`}
-        className={`mono mb-3 text-center text-[0.66rem] uppercase tracking-[0.28em] text-[color:var(--oxblood)] ${animate ? "plate-fade" : ""}`}
+        className="mono plate-fade mb-3 text-center text-[0.66rem] uppercase tracking-[0.28em] text-[color:var(--oxblood)]"
       >
         Plate {cur.numeral}
       </p>
@@ -106,14 +104,14 @@ export function PlateShow() {
 
       <p
         key={`t${i}`}
-        className={`mt-3 text-center font-[family-name:var(--font-display)] italic text-[color:var(--ink-soft)] ${animate ? "plate-fade" : ""}`}
+        className="plate-fade mt-3 text-center font-[family-name:var(--font-display)] italic text-[color:var(--ink-soft)]"
         style={{ fontVariationSettings: '"opsz" 30, "SOFT" 40' }}
       >
         {cur.title}
       </p>
       <p
         key={`c${i}`}
-        className={`mono mt-1 text-center text-[0.6rem] uppercase tracking-[0.16em] text-[color:var(--ink-faint)] ${animate ? "plate-fade" : ""}`}
+        className="mono plate-fade mt-1 text-center text-[0.6rem] uppercase tracking-[0.16em] text-[color:var(--ink-faint)]"
       >
         {cur.credit}
       </p>

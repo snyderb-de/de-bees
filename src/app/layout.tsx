@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Fraunces, Newsreader, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import "./atlas.css";
 import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-import { RoamingBee } from "@/components/roaming-bee";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -30,11 +29,11 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "The Apiary Ledger of Delaware",
-    template: "%s · The Apiary Ledger of Delaware",
+    default: "DE Bees",
+    template: "%s · DE Bees",
   },
   description:
-    "An illustrated register of Delaware's beekeepers and honey makers — their apiaries, varietals, awards, and the honey of the First State, county by county.",
+    "A hand-drawn atlas of Delaware beekeepers, honey sources, swarm removal, and cut-out services.",
   keywords: [
     "Delaware beekeepers",
     "local honey Delaware",
@@ -44,9 +43,9 @@ export const metadata: Metadata = {
     "Delaware Beekeepers Association",
   ],
   openGraph: {
-    title: "The Apiary Ledger of Delaware",
+    title: "DE Bees",
     description:
-      "An illustrated register of Delaware's beekeepers and honey makers.",
+      "A hand-drawn atlas of Delaware beekeepers and honey makers.",
     type: "website",
   },
 };
@@ -59,13 +58,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${fraunces.variable} ${newsreader.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <SiteHeader />
         <main className="flex-1">{children}</main>
-        <SiteFooter />
-        <RoamingBee />
       </body>
     </html>
   );

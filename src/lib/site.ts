@@ -4,9 +4,9 @@
 import type { County } from "./keepers";
 
 export const SITE = {
-  name: "The Apiary Ledger of Delaware",
-  short: "The Apiary Ledger",
-  tagline: "A register of the keepers and honey of the First State.",
+  name: "DE Bees",
+  short: "DE Bees",
+  tagline: "Delaware beekeepers, county by county.",
   // Contact for the "Get Listed" form (mailto). Replace with the real inbox.
   contactEmail: "register@apiaryledger.example",
 };
@@ -98,9 +98,8 @@ export const CLUBS: Club[] = [
 ];
 
 export const NAV = [
-  { href: "/keepers", label: "The Register" },
-  { href: "/map", label: "The Map" },
-  { href: "/services", label: "Swarms & Services" },
-  { href: "/learn", label: "Learn" },
-  { href: "/about", label: "About" },
+  { href: "/", label: "Home" },
+  { href: "/map", label: "Map" },
+  { href: "/keepers", label: "Register" },
+  { href: "/services", label: "Services" },
 ];
