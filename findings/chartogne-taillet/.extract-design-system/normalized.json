@@ -1,0 +1,26 @@
+{
+  "source": {
+    "url": "https://chartogne-taillet.com/en",
+    "extractedAt": "2026-06-22T04:24:50.219Z",
+    "extractor": "dembrandt"
+  },
+  "colors": {
+    "palette": [],
+    "cssVariables": {}
+  },
+  "typography": {
+    "headingFont": "Sabon LT Std",
+    "bodyFont": "Sabon LT Std"
+  },
+  "spacing": {
+    "scale": [
+      "60px"
+    ]
+  },
+  "radius": {
+    "scale": []
+  },
+  "shadows": {
+    "scale": []
+  }
+}

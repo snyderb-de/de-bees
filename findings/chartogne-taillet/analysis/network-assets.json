@@ -1,0 +1,719 @@
+{
+  "byType": [
+    {
+      "value": "image",
+      "count": 62
+    },
+    {
+      "value": "other",
+      "count": 12
+    },
+    {
+      "value": "xhr",
+      "count": 8
+    },
+    {
+      "value": "media",
+      "count": 7
+    },
+    {
+      "value": "font",
+      "count": 2
+    },
+    {
+      "value": "script",
+      "count": 2
+    },
+    {
+      "value": "document",
+      "count": 1
+    },
+    {
+      "value": "stylesheet",
+      "count": 1
+    }
+  ],
+  "byExtension": [
+    {
+      "value": "png",
+      "count": 45
+    },
+    {
+      "value": "jpg",
+      "count": 17
+    },
+    {
+      "value": "js",
+      "count": 8
+    },
+    {
+      "value": "mp3",
+      "count": 8
+    },
+    {
+      "value": "css",
+      "count": 7
+    },
+    {
+      "value": "glb",
+      "count": 7
+    },
+    {
+      "value": "woff2",
+      "count": 2
+    }
+  ],
+  "assets": [
+    {
+      "url": "https://chartogne-taillet.com/3557fda5b6734274878118f5629fb9f6.glb",
+      "status": 200,
+      "type": "xhr",
+      "contentType": "text/plain",
+      "extension": "glb"
+    },
+    {
+      "url": "https://chartogne-taillet.com/4305195214eeb2d34abca1aeacc1e494.glb",
+      "status": 200,
+      "type": "xhr",
+      "contentType": "text/plain",
+      "extension": "glb"
+    },
+    {
+      "url": "https://chartogne-taillet.com/63f6cc074e19044a2045a6a581834c5a.glb",
+      "status": 200,
+      "type": "xhr",
+      "contentType": "text/plain",
+      "extension": "glb"
+    },
+    {
+      "url": "https://chartogne-taillet.com/7c53543979b823cd6a7ac4af1851d09f.glb",
+      "status": 200,
+      "type": "xhr",
+      "contentType": "text/plain",
+      "extension": "glb"
+    },
+    {
+      "url": "https://chartogne-taillet.com/7f4d38d1bcad13a769d0af2faa406e1e.glb",
+      "status": 200,
+      "type": "xhr",
+      "contentType": "text/plain",
+      "extension": "glb"
+    },
+    {
+      "url": "https://chartogne-taillet.com/af5372209a98e211be69fb17028a498c.glb",
+      "status": 200,
+      "type": "xhr",
+      "contentType": "text/plain",
+      "extension": "glb"
+    },
+    {
+      "url": "https://chartogne-taillet.com/assets/fonts/SabonLTStd-Roman.woff2",
+      "status": 200,
+      "type": "font",
+      "contentType": "",
+      "extension": "woff2"
+    },
+    {
+      "url": "https://chartogne-taillet.com/assets/fonts/ShipleyRegular.woff2",
+      "status": 200,
+      "type": "font",
+      "contentType": "",
+      "extension": "woff2"
+    },
+    {
+      "url": "https://chartogne-taillet.com/assets/images/logo.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/css/app.9bbe455c.css",
+      "status": 200,
+      "type": "stylesheet",
+      "contentType": "text/css",
+      "extension": "css"
+    },
+    {
+      "url": "https://chartogne-taillet.com/css/chunk-0ca7d334.e78aeb95.css",
+      "status": 200,
+      "type": "other",
+      "contentType": "text/css",
+      "extension": "css"
+    },
+    {
+      "url": "https://chartogne-taillet.com/css/chunk-465a809c.853a5448.css",
+      "status": 200,
+      "type": "other",
+      "contentType": "text/css",
+      "extension": "css"
+    },
+    {
+      "url": "https://chartogne-taillet.com/css/chunk-4c283c3e.ace8993e.css",
+      "status": 200,
+      "type": "other",
+      "contentType": "text/css",
+      "extension": "css"
+    },
+    {
+      "url": "https://chartogne-taillet.com/css/chunk-58504092.8e5a9cdd.css",
+      "status": 200,
+      "type": "other",
+      "contentType": "text/css",
+      "extension": "css"
+    },
+    {
+      "url": "https://chartogne-taillet.com/css/chunk-758f07d2.3296a367.css",
+      "status": 200,
+      "type": "other",
+      "contentType": "text/css",
+      "extension": "css"
+    },
+    {
+      "url": "https://chartogne-taillet.com/css/chunk-8238b19c.b214622c.css",
+      "status": 200,
+      "type": "other",
+      "contentType": "text/css",
+      "extension": "css"
+    },
+    {
+      "url": "https://chartogne-taillet.com/f7ef1271c9def1decd9a4600548e3798.glb",
+      "status": 200,
+      "type": "xhr",
+      "contentType": "text/plain",
+      "extension": "glb"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/arrowButton.a52e193f.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/blazonData.c92a7f54.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/clouds.4d9eaa36.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/compassArrow.2225f3e6.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/cursorNorth.f2395713.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/domainBlazon.04c7b2f8.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/domainLabel.7a29a2da.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/hotelBlazon.12f4a86c.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/hotelLabel.19902459.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/label.39ef78fd.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/label.a1163287.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/label.a34324f3.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/label.be1cb8b0.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/label.c55b0528.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/label.cabaa957.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/label.d7213123.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/mapButton.95a2990f.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/menuButton.5171c5f0.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/paintingMask.ba9be29d.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/paper-256x256.5cb775d1.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/perlin-512x512.4b707571.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/preview.9028b205.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/preview.a1b08993.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/reims.59942af1.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/streets.129cbd22.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/streets.7f922d96.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/subTitle.41004816.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/subTitle.9bc64c8e.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/terrainData1.6ab6692c.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/terrainData1.f3359479.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/terrainData2.54804d71.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/terrainData2.6ab056f5.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/terrainData3.9bedbb99.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/terrainData3.fbded28f.jpg",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/jpeg",
+      "extension": "jpg"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.01193d59.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.02500595.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.0ce44eef.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.1ccd552d.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.226ff9ac.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.33a6fa25.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.446ef989.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.4611cf9a.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.598f2b94.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.5e9a4374.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.66edfb28.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.721c02d1.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.78e8465c.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.79d6db26.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.7f065e1c.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.81f83317.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.926342fc.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.944fa6d3.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.9d3e54b2.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.ae941a4b.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.c89b272b.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.e9f9e328.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.ec594d14.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.ec868ad1.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.f49f62f1.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.fa9c5ec1.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/img/title.fd830be1.png",
+      "status": 200,
+      "type": "image",
+      "contentType": "image/png",
+      "extension": "png"
+    },
+    {
+      "url": "https://chartogne-taillet.com/js/app.257ecce9.js",
+      "status": 200,
+      "type": "script",
+      "contentType": "application/javascript",
+      "extension": "js"
+    },
+    {
+      "url": "https://chartogne-taillet.com/js/chunk-0ca7d334.3980483d.js",
+      "status": 200,
+      "type": "other",
+      "contentType": "application/javascript",
+      "extension": "js"
+    },
+    {
+      "url": "https://chartogne-taillet.com/js/chunk-465a809c.c1583c4b.js",
+      "status": 200,
+      "type": "other",
+      "contentType": "application/javascript",
+      "extension": "js"
+    },
+    {
+      "url": "https://chartogne-taillet.com/js/chunk-4c283c3e.bcbed6af.js",
+      "status": 200,
+      "type": "other",
+      "contentType": "application/javascript",
+      "extension": "js"
+    },
+    {
+      "url": "https://chartogne-taillet.com/js/chunk-58504092.f46cad22.js",
+      "status": 200,
+      "type": "other",
+      "contentType": "application/javascript",
+      "extension": "js"
+    },
+    {
+      "url": "https://chartogne-taillet.com/js/chunk-758f07d2.47cca21b.js",
+      "status": 200,
+      "type": "other",
+      "contentType": "application/javascript",
+      "extension": "js"
+    },
+    {
+      "url": "https://chartogne-taillet.com/js/chunk-8238b19c.05c65c51.js",
+      "status": 200,
+      "type": "other",
+      "contentType": "application/javascript",
+      "extension": "js"
+    },
+    {
+      "url": "https://chartogne-taillet.com/js/chunk-vendors.717b7cd1.js",
+      "status": 200,
+      "type": "script",
+      "contentType": "application/javascript",
+      "extension": "js"
+    },
+    {
+      "url": "https://chartogne-taillet.com/media/CHARTOGNE-Loop-FreeMode-FADE-201009.2314f0b3.mp3",
+      "status": 206,
+      "type": "media",
+      "contentType": "audio/mpeg",
+      "extension": "mp3"
+    },
+    {
+      "url": "https://chartogne-taillet.com/media/CHARTOGNE-Loop-Parcelle-FADE-201009.c21d4edd.mp3",
+      "status": 206,
+      "type": "media",
+      "contentType": "audio/mpeg",
+      "extension": "mp3"
+    },
+    {
+      "url": "https://chartogne-taillet.com/media/CHARTOGNE-SD-AQUA%20vers%20FM.f0d906b7.mp3",
+      "status": 206,
+      "type": "media",
+      "contentType": "audio/mpeg",
+      "extension": "mp3"
+    },
+    {
+      "url": "https://chartogne-taillet.com/media/CHARTOGNE-SD-Change%20village.d8363f65.mp3",
+      "status": 206,
+      "type": "media",
+      "contentType": "audio/mpeg",
+      "extension": "mp3"
+    },
+    {
+      "url": "https://chartogne-taillet.com/media/CHARTOGNE-SD-FM%20vers%20AQUA.eeada83b.mp3",
+      "status": 206,
+      "type": "media",
+      "contentType": "audio/mpeg",
+      "extension": "mp3"
+    },
+    {
+      "url": "https://chartogne-taillet.com/media/CHARTOGNE-SD-Intro-Scenario2.c41e2788.mp3",
+      "status": 206,
+      "type": "media",
+      "contentType": "audio/mpeg",
+      "extension": "mp3"
+    },
+    {
+      "url": "https://chartogne-taillet.com/media/CHARTOGNE-SD-Vers%20carte.115d39d8.mp3",
+      "status": 206,
+      "type": "media",
+      "contentType": "audio/mpeg",
+      "extension": "mp3"
+    }
+  ]
+}

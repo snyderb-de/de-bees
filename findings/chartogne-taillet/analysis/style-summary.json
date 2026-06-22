@@ -1,0 +1,1090 @@
+{
+  "dom": {
+    "colors": [
+      {
+        "value": "rgb(0, 0, 0)",
+        "count": 4
+      },
+      {
+        "value": "rgb(194, 61, 42)",
+        "count": 4
+      },
+      {
+        "value": "rgb(253, 252, 245)",
+        "count": 2
+      },
+      {
+        "value": "rgb(249, 246, 238)",
+        "count": 1
+      }
+    ],
+    "fonts": [
+      {
+        "value": "\"Sabon LT Std\", \"Times New Roman\", Times, serif",
+        "count": 4
+      },
+      {
+        "value": "ShipleyRegular",
+        "count": 4
+      }
+    ],
+    "fontSizes": [
+      {
+        "value": "10.14px",
+        "count": 2
+      },
+      {
+        "value": "12.48px",
+        "count": 2
+      },
+      {
+        "value": "12.75px",
+        "count": 2
+      },
+      {
+        "value": "12px",
+        "count": 2
+      },
+      {
+        "value": "13px",
+        "count": 2
+      },
+      {
+        "value": "16px",
+        "count": 2
+      },
+      {
+        "value": "23.04px",
+        "count": 2
+      },
+      {
+        "value": "9.75px",
+        "count": 2
+      }
+    ],
+    "letterSpacing": [
+      {
+        "value": "normal",
+        "count": 4
+      },
+      {
+        "value": "1.4625px",
+        "count": 2
+      },
+      {
+        "value": "1.95px",
+        "count": 2
+      },
+      {
+        "value": "2.535px",
+        "count": 2
+      },
+      {
+        "value": "3.12px",
+        "count": 2
+      },
+      {
+        "value": "5.76px",
+        "count": 2
+      }
+    ],
+    "lineHeights": [
+      {
+        "value": "60px",
+        "count": 4
+      },
+      {
+        "value": "11.7px",
+        "count": 2
+      },
+      {
+        "value": "12.75px",
+        "count": 2
+      },
+      {
+        "value": "14.4px",
+        "count": 2
+      },
+      {
+        "value": "15.3px",
+        "count": 2
+      },
+      {
+        "value": "15.6px",
+        "count": 2
+      },
+      {
+        "value": "17.745px",
+        "count": 2
+      },
+      {
+        "value": "19.2px",
+        "count": 2
+      },
+      {
+        "value": "40.32px",
+        "count": 2
+      },
+      {
+        "value": "12px",
+        "count": 1
+      },
+      {
+        "value": "16px",
+        "count": 1
+      }
+    ],
+    "radii": [],
+    "shadows": [],
+    "spacingValues": [
+      {
+        "value": "9.75px",
+        "count": 4
+      },
+      {
+        "value": "-19.125px",
+        "count": 2
+      },
+      {
+        "value": "13px",
+        "count": 2
+      },
+      {
+        "value": "31.875px",
+        "count": 2
+      },
+      {
+        "value": "36px",
+        "count": 2
+      },
+      {
+        "value": "72px",
+        "count": 2
+      },
+      {
+        "value": "32.1719px",
+        "count": 1
+      },
+      {
+        "value": "45px",
+        "count": 1
+      },
+      {
+        "value": "67.5px",
+        "count": 1
+      }
+    ]
+  },
+  "css": {
+    "colors": [
+      {
+        "value": "rgb(0, 0, 0)",
+        "count": 14
+      },
+      {
+        "value": "rgb(194, 61, 42)",
+        "count": 14
+      },
+      {
+        "value": "rgb(17, 17, 17)",
+        "count": 6
+      },
+      {
+        "value": "rgb(176, 165, 143)",
+        "count": 6
+      },
+      {
+        "value": "rgb(47, 161, 214)",
+        "count": 6
+      },
+      {
+        "value": "rgb(197, 189, 173)",
+        "count": 4
+      },
+      {
+        "value": "rgb(249, 246, 238)",
+        "count": 4
+      },
+      {
+        "value": "rgb(253, 252, 245)",
+        "count": 4
+      },
+      {
+        "value": "rgb(255, 255, 255)",
+        "count": 4
+      },
+      {
+        "value": "rgb(26, 26, 26)",
+        "count": 4
+      },
+      {
+        "value": "rgb(30, 211, 111)",
+        "count": 4
+      },
+      {
+        "value": "rgb(34, 34, 34)",
+        "count": 4
+      },
+      {
+        "value": "rgb(44, 44, 44)",
+        "count": 4
+      },
+      {
+        "value": "rgb(48, 48, 48)",
+        "count": 4
+      },
+      {
+        "value": "rgb(60, 60, 60)",
+        "count": 4
+      },
+      {
+        "value": "rgb(103, 103, 103)",
+        "count": 2
+      },
+      {
+        "value": "rgb(128, 103, 135)",
+        "count": 2
+      },
+      {
+        "value": "rgb(136, 136, 136)",
+        "count": 2
+      },
+      {
+        "value": "rgb(186, 177, 158)",
+        "count": 2
+      },
+      {
+        "value": "rgb(218, 213, 203)",
+        "count": 2
+      },
+      {
+        "value": "rgb(230, 29, 95)",
+        "count": 2
+      },
+      {
+        "value": "rgb(238, 238, 238)",
+        "count": 2
+      },
+      {
+        "value": "rgb(51, 51, 51)",
+        "count": 2
+      },
+      {
+        "value": "rgb(68, 171, 218)",
+        "count": 2
+      },
+      {
+        "value": "rgb(73, 73, 73)",
+        "count": 2
+      },
+      {
+        "value": "rgb(98, 94, 84)",
+        "count": 2
+      },
+      {
+        "value": "rgba(0, 0, 0, 0.05)",
+        "count": 2
+      },
+      {
+        "value": "rgba(0, 0, 0, 0)",
+        "count": 2
+      },
+      {
+        "value": "rgba(255, 255, 255, 0.2)",
+        "count": 2
+      },
+      {
+        "value": "rgb(160, 160, 149)",
+        "count": 1
+      },
+      {
+        "value": "rgb(70, 67, 64)",
+        "count": 1
+      },
+      {
+        "value": "rgba(0, 0, 0, 0.11)",
+        "count": 1
+      },
+      {
+        "value": "rgba(0, 0, 0, 0.32)",
+        "count": 1
+      }
+    ],
+    "fontDeclarations": [
+      {
+        "value": "font-family: ShipleyRegular;",
+        "count": 21
+      },
+      {
+        "value": "font-family: \"Sabon LT Std\";",
+        "count": 2
+      },
+      {
+        "value": "font-family: Monaco, monospace;",
+        "count": 2
+      },
+      {
+        "value": "font-family: \"Sabon LT Std\", \"Times New Roman\", Times, serif;",
+        "count": 1
+      },
+      {
+        "value": "font-family: \"SabonNext LT\";",
+        "count": 1
+      },
+      {
+        "value": "font-family: inherit;",
+        "count": 1
+      },
+      {
+        "value": "font-family: ShipleyItalic;",
+        "count": 1
+      }
+    ],
+    "assetUrls": [
+      {
+        "value": "data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlGIWqMCbWAEAOw==",
+        "count": 2
+      },
+      {
+        "value": "data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlI+hKgFxoCgAOw==",
+        "count": 2
+      },
+      {
+        "value": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAANCAYAAAB/9ZQ7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQJJREFUeNpiYKAU/P//PwGIC/ApCABiBSAW+I8AClAcgKxQ4T9hoMAEUrxx2QSGN6+egDX+/vWT4e7N82AMYoPAx/evwWoYoSYbACX2s7KxCxzcsezDh3evFoDEBYTEEqycggWAzA9AuUSQQgeYPa9fPv6/YWm/Acx5IPb7ty/fw+QZblw67vDs8R0YHyQhgObx+yAJkBqmG5dPPDh1aPOGR/eugW0G4vlIoTIfyFcA+QekhhHJhPdQxbiAIguMBTQZrPD7108M6roWYDFQiIAAv6Aow/1bFwXgis+f2LUAynwoIaNcz8XNx3Dl7MEJUDGQpx9gtQ8YCueB+D26OECAAQDadt7e46D42QAAAABJRU5ErkJggg==",
+        "count": 2
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/images/logo-2x.png",
+        "count": 2
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/fonts/SabonLTStd-Bold.woff",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/fonts/SabonLTStd-Bold.woff2",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/fonts/SabonLTStd-Roman.woff",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/fonts/SabonLTStd-Roman.woff2",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/fonts/SabonNextLT-BlackItalic.woff",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/fonts/SabonNextLT-BlackItalic.woff2",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/fonts/ShipleyItalic.woff",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/fonts/ShipleyItalic.woff2",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/fonts/ShipleyRegular.woff",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/fonts/ShipleyRegular.woff2",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/images/cross.png",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/images/download.png",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/images/grille.png",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/images/logo.png",
+        "count": 1
+      },
+      {
+        "value": "https://chartogne-taillet.com/assets/images/wines/shadow.png",
+        "count": 1
+      }
+    ],
+    "mediaQueries": [
+      {
+        "value": "(max-width: 767px)",
+        "count": 63
+      },
+      {
+        "value": "(min-width: 768px)",
+        "count": 3
+      },
+      {
+        "value": "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)",
+        "count": 1
+      },
+      {
+        "value": "(max-width: 374px)",
+        "count": 1
+      },
+      {
+        "value": "(min-width: 1024px)",
+        "count": 1
+      },
+      {
+        "value": "(min-width: 1920px)",
+        "count": 1
+      }
+    ],
+    "sizeValues": [
+      {
+        "value": "0px",
+        "count": 147
+      },
+      {
+        "value": "767px",
+        "count": 63
+      },
+      {
+        "value": "100%",
+        "count": 50
+      },
+      {
+        "value": "1px",
+        "count": 33
+      },
+      {
+        "value": "50%",
+        "count": 31
+      },
+      {
+        "value": "4.0625rem",
+        "count": 21
+      },
+      {
+        "value": "1.875rem",
+        "count": 18
+      },
+      {
+        "value": "3px",
+        "count": 16
+      },
+      {
+        "value": "4px",
+        "count": 15
+      },
+      {
+        "value": "1.5rem",
+        "count": 14
+      },
+      {
+        "value": "23.4375rem",
+        "count": 14
+      },
+      {
+        "value": "5px",
+        "count": 14
+      },
+      {
+        "value": "-50%",
+        "count": 12
+      },
+      {
+        "value": "1em",
+        "count": 11
+      },
+      {
+        "value": "0.9375rem",
+        "count": 10
+      },
+      {
+        "value": "10px",
+        "count": 10
+      },
+      {
+        "value": "3.125vw",
+        "count": 10
+      },
+      {
+        "value": "-1px",
+        "count": 9
+      },
+      {
+        "value": "25%",
+        "count": 9
+      },
+      {
+        "value": "3.125rem",
+        "count": 9
+      },
+      {
+        "value": "27px",
+        "count": 8
+      },
+      {
+        "value": "0.2em",
+        "count": 7
+      },
+      {
+        "value": "7px",
+        "count": 7
+      },
+      {
+        "value": "0.4em",
+        "count": 6
+      },
+      {
+        "value": "1.40625rem",
+        "count": 6
+      },
+      {
+        "value": "15%",
+        "count": 6
+      },
+      {
+        "value": "15px",
+        "count": 6
+      },
+      {
+        "value": "0.25em",
+        "count": 5
+      },
+      {
+        "value": "1.2em",
+        "count": 5
+      },
+      {
+        "value": "10rem",
+        "count": 5
+      },
+      {
+        "value": "5vw",
+        "count": 5
+      },
+      {
+        "value": "0.05em",
+        "count": 4
+      },
+      {
+        "value": "0.15em",
+        "count": 4
+      },
+      {
+        "value": "0.78125rem",
+        "count": 4
+      },
+      {
+        "value": "0.833333vw",
+        "count": 4
+      },
+      {
+        "value": "11px",
+        "count": 4
+      },
+      {
+        "value": "16px",
+        "count": 4
+      },
+      {
+        "value": "19px",
+        "count": 4
+      },
+      {
+        "value": "2.1875rem",
+        "count": 4
+      },
+      {
+        "value": "25px",
+        "count": 4
+      },
+      {
+        "value": "2px",
+        "count": 4
+      },
+      {
+        "value": "3em",
+        "count": 4
+      },
+      {
+        "value": "6px",
+        "count": 4
+      },
+      {
+        "value": "6rem",
+        "count": 4
+      },
+      {
+        "value": "8px",
+        "count": 4
+      },
+      {
+        "value": "0.75rem",
+        "count": 3
+      },
+      {
+        "value": "0.8125rem",
+        "count": 3
+      },
+      {
+        "value": "0%",
+        "count": 3
+      },
+      {
+        "value": "1.5625rem",
+        "count": 3
+      },
+      {
+        "value": "144px",
+        "count": 3
+      },
+      {
+        "value": "14px",
+        "count": 3
+      },
+      {
+        "value": "1rem",
+        "count": 3
+      },
+      {
+        "value": "2.5em",
+        "count": 3
+      },
+      {
+        "value": "2.5rem",
+        "count": 3
+      },
+      {
+        "value": "2.625em",
+        "count": 3
+      },
+      {
+        "value": "2.625rem",
+        "count": 3
+      },
+      {
+        "value": "20%",
+        "count": 3
+      },
+      {
+        "value": "32.2917vw",
+        "count": 3
+      },
+      {
+        "value": "4.375rem",
+        "count": 3
+      },
+      {
+        "value": "6.5em",
+        "count": 3
+      },
+      {
+        "value": "7.375rem",
+        "count": 3
+      },
+      {
+        "value": "768px",
+        "count": 3
+      },
+      {
+        "value": "80%",
+        "count": 3
+      },
+      {
+        "value": "-1.5em",
+        "count": 2
+      },
+      {
+        "value": "-2.5rem",
+        "count": 2
+      },
+      {
+        "value": "-27rem",
+        "count": 2
+      },
+      {
+        "value": "-4px",
+        "count": 2
+      },
+      {
+        "value": "-52rem",
+        "count": 2
+      },
+      {
+        "value": "-5px",
+        "count": 2
+      },
+      {
+        "value": "-9px",
+        "count": 2
+      },
+      {
+        "value": "0.1em",
+        "count": 2
+      },
+      {
+        "value": "0.3125em",
+        "count": 2
+      },
+      {
+        "value": "0.40625rem",
+        "count": 2
+      },
+      {
+        "value": "1.3em",
+        "count": 2
+      },
+      {
+        "value": "1.53125rem",
+        "count": 2
+      },
+      {
+        "value": "1.5em",
+        "count": 2
+      },
+      {
+        "value": "1.625rem",
+        "count": 2
+      },
+      {
+        "value": "1.6vw",
+        "count": 2
+      },
+      {
+        "value": "1.71875rem",
+        "count": 2
+      },
+      {
+        "value": "10.5vw",
+        "count": 2
+      },
+      {
+        "value": "10%",
+        "count": 2
+      },
+      {
+        "value": "100px",
+        "count": 2
+      },
+      {
+        "value": "100vw",
+        "count": 2
+      },
+      {
+        "value": "108px",
+        "count": 2
+      },
+      {
+        "value": "11vw",
+        "count": 2
+      },
+      {
+        "value": "12px",
+        "count": 2
+      },
+      {
+        "value": "13px",
+        "count": 2
+      },
+      {
+        "value": "14.125rem",
+        "count": 2
+      },
+      {
+        "value": "150%",
+        "count": 2
+      },
+      {
+        "value": "17px",
+        "count": 2
+      },
+      {
+        "value": "18.75%",
+        "count": 2
+      },
+      {
+        "value": "1920px",
+        "count": 2
+      },
+      {
+        "value": "2.25rem",
+        "count": 2
+      },
+      {
+        "value": "2.5vw",
+        "count": 2
+      },
+      {
+        "value": "2.6vw",
+        "count": 2
+      },
+      {
+        "value": "20.625rem",
+        "count": 2
+      },
+      {
+        "value": "20px",
+        "count": 2
+      },
+      {
+        "value": "23.5px",
+        "count": 2
+      },
+      {
+        "value": "23px",
+        "count": 2
+      },
+      {
+        "value": "28.75%",
+        "count": 2
+      },
+      {
+        "value": "288px",
+        "count": 2
+      },
+      {
+        "value": "2rem",
+        "count": 2
+      },
+      {
+        "value": "3.2vw",
+        "count": 2
+      },
+      {
+        "value": "3.625rem",
+        "count": 2
+      },
+      {
+        "value": "3.64583vw",
+        "count": 2
+      },
+      {
+        "value": "3.90625vw",
+        "count": 2
+      },
+      {
+        "value": "30%",
+        "count": 2
+      },
+      {
+        "value": "35.4167vw",
+        "count": 2
+      },
+      {
+        "value": "3rem",
+        "count": 2
+      },
+      {
+        "value": "4.26667vw",
+        "count": 2
+      },
+      {
+        "value": "4.5rem",
+        "count": 2
+      },
+      {
+        "value": "4.6875%",
+        "count": 2
+      },
+      {
+        "value": "40%",
+        "count": 2
+      },
+      {
+        "value": "40vw",
+        "count": 2
+      },
+      {
+        "value": "440px",
+        "count": 2
+      },
+      {
+        "value": "460px",
+        "count": 2
+      },
+      {
+        "value": "47px",
+        "count": 2
+      },
+      {
+        "value": "5.5rem",
+        "count": 2
+      },
+      {
+        "value": "50vw",
+        "count": 2
+      },
+      {
+        "value": "54rem",
+        "count": 2
+      },
+      {
+        "value": "5rem",
+        "count": 2
+      },
+      {
+        "value": "60%",
+        "count": 2
+      },
+      {
+        "value": "60px",
+        "count": 2
+      },
+      {
+        "value": "66%",
+        "count": 2
+      },
+      {
+        "value": "7.75rem",
+        "count": 2
+      },
+      {
+        "value": "72px",
+        "count": 2
+      },
+      {
+        "value": "7rem",
+        "count": 2
+      },
+      {
+        "value": "8.125rem",
+        "count": 2
+      },
+      {
+        "value": "8.25%",
+        "count": 2
+      },
+      {
+        "value": "9.5rem",
+        "count": 2
+      },
+      {
+        "value": "9.625vw",
+        "count": 2
+      },
+      {
+        "value": "90%",
+        "count": 2
+      },
+      {
+        "value": "9px",
+        "count": 2
+      },
+      {
+        "value": "-0.5em",
+        "count": 1
+      },
+      {
+        "value": "-100%",
+        "count": 1
+      },
+      {
+        "value": "-100px",
+        "count": 1
+      },
+      {
+        "value": "-17.25rem",
+        "count": 1
+      },
+      {
+        "value": "-22.5rem",
+        "count": 1
+      },
+      {
+        "value": "-2px",
+        "count": 1
+      },
+      {
+        "value": "-30px",
+        "count": 1
+      },
+      {
+        "value": "-36.1979vw",
+        "count": 1
+      },
+      {
+        "value": "-36.5rem",
+        "count": 1
+      },
+      {
+        "value": "-37vw",
+        "count": 1
+      },
+      {
+        "value": "-3px",
+        "count": 1
+      },
+      {
+        "value": "-7.25rem",
+        "count": 1
+      },
+      {
+        "value": "0.3em",
+        "count": 1
+      },
+      {
+        "value": "0.5px",
+        "count": 1
+      },
+      {
+        "value": "0.625rem",
+        "count": 1
+      },
+      {
+        "value": "0.825em",
+        "count": 1
+      },
+      {
+        "value": "0.875rem",
+        "count": 1
+      },
+      {
+        "value": "1.0625em",
+        "count": 1
+      },
+      {
+        "value": "1.125rem",
+        "count": 1
+      },
+      {
+        "value": "1.25rem",
+        "count": 1
+      },
+      {
+        "value": "1.52em",
+        "count": 1
+      },
+      {
+        "value": "1.7em",
+        "count": 1
+      },
+      {
+        "value": "10.625rem",
+        "count": 1
+      },
+      {
+        "value": "1024px",
+        "count": 1
+      },
+      {
+        "value": "106.25%",
+        "count": 1
+      },
+      {
+        "value": "12.5%",
+        "count": 1
+      },
+      {
+        "value": "12.5rem",
+        "count": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+:root {
+  --ct-color-paper: #fff5dd;
+  --ct-color-paper-page: #fdfcf5;
+  --ct-color-paper-band: #f9f6ee;
+  --ct-color-paper-screenshot: #fff8e0;
+  --ct-color-ink: #000000;
+  --ct-color-pencil-darker: #363832;
+  --ct-color-pencil-dark: #585858;
+  --ct-color-pencil: #8c887d;
+  --ct-color-pencil-light: #ded5c1;
+  --ct-color-accent: #c23d2a;
+  --ct-color-highlight: #c55656;
+  --ct-color-terrain-gold: #b7a768;
+  --ct-color-muted: #625e54;
+
+  --ct-font-body: "Sabon LT Std", "Times New Roman", Times, serif;
+  --ct-font-display: ShipleyRegular, "Times New Roman", Times, serif;
+  --ct-font-display-italic: ShipleyItalic, "Times New Roman", Times, serif;
+  --ct-font-heavy-italic: "SabonNext LT", "Times New Roman", Times, serif;
+
+  --ct-text-body-desktop: 1.5625rem;
+  --ct-text-body-mobile: 0.9375rem;
+  --ct-text-display-large: 4.5rem;
+  --ct-text-display-menu: 4.5rem;
+  --ct-text-display-menu-mobile: 1.875rem;
+  --ct-text-small-heading: 0.875rem;
+  --ct-text-cta: 14px;
+
+  --ct-tracking-display-tight: 0.15em;
+  --ct-tracking-display: 0.2em;
+  --ct-tracking-intro: 0.25em;
+  --ct-tracking-wide: 0.4em;
+
+  --ct-root-font-desktop: 0.8333333333vw;
+  --ct-root-font-desktop-max: 16px;
+  --ct-content-mobile-max: 23.4375rem;
+  --ct-cta-inset-desktop: 3.125rem;
+  --ct-cta-inset-mobile: 1.5rem;
+  --ct-section-gap-mobile: 4.0625rem;
+
+  --ct-motion-intro-transition: 4300ms;
+  --ct-motion-camera-intro: 3000ms;
+  --ct-motion-camera-focus: 2000ms;
+  --ct-motion-cta-hover: 300ms;
+  --ct-motion-enter-hover-letters: 450ms;
+  --ct-motion-panel-extend: 2000ms;
+  --ct-motion-panel-leave: 2500ms;
+}

@@ -1,0 +1,223 @@
+{
+  "url": "https://chartogne-taillet.com/en",
+  "extractedAt": "2026-06-22T04:24:50.219Z",
+  "siteName": "Chartogne-Taillet",
+  "logo": null,
+  "favicons": [
+    {
+      "type": "icon",
+      "url": "https://chartogne-taillet.com/Chartogne-Favicon32.png",
+      "sizes": null
+    },
+    {
+      "type": "og:image",
+      "url": "https://chartogne-taillet.com/assets/chartogne-taillet.png",
+      "sizes": null
+    },
+    {
+      "type": "favicon.ico",
+      "url": "https://chartogne-taillet.com/favicon.ico",
+      "sizes": null
+    }
+  ],
+  "colors": {
+    "semantic": {},
+    "palette": [
+      {
+        "color": "rgb(194, 61, 42)",
+        "normalized": "#c23d2a",
+        "count": 16,
+        "confidence": "medium",
+        "sources": [
+          "underline"
+        ],
+        "lch": "lch(45.6% 66.11 38.17)",
+        "oklch": "oklch(55.09% 0.173 31.13)"
+      }
+    ],
+    "cssVariables": {},
+    "_raw": [
+      {
+        "color": "rgb(0, 0, 0)",
+        "normalized": "#000000",
+        "count": 214
+      },
+      {
+        "color": "rgb(194, 61, 42)",
+        "normalized": "#c23d2a",
+        "count": 16
+      }
+    ]
+  },
+  "typography": {
+    "styles": [
+      {
+        "context": "heading-1",
+        "family": "Sabon LT Std",
+        "fallbacks": "Times New Roman, Times",
+        "size": "30.72px (1.92rem)",
+        "weight": 400,
+        "lineHeight": "1.75",
+        "spacing": "7.68px",
+        "transform": "uppercase"
+      },
+      {
+        "context": "heading-1",
+        "family": "Sabon LT Std",
+        "fallbacks": "Times New Roman, Times",
+        "size": "30.72px (1.92rem)",
+        "weight": 400,
+        "lineHeight": "1.75",
+        "spacing": "7.68px",
+        "transform": null
+      },
+      {
+        "context": "heading-1",
+        "family": "Sabon LT Std",
+        "fallbacks": "Times New Roman, Times",
+        "size": "17px (1.06rem)",
+        "weight": 400,
+        "lineHeight": "1.20",
+        "spacing": null,
+        "transform": null
+      },
+      {
+        "context": "button",
+        "family": "Sabon LT Std",
+        "fallbacks": "Times New Roman, Times",
+        "size": "17px (1.06rem)",
+        "weight": 400,
+        "lineHeight": "1.00",
+        "spacing": null,
+        "transform": null
+      },
+      {
+        "context": "button",
+        "family": "Sabon LT Std",
+        "fallbacks": "Times New Roman, Times",
+        "size": "16px (1.00rem)",
+        "weight": 400,
+        "lineHeight": "1.00",
+        "spacing": null,
+        "transform": null
+      },
+      {
+        "context": "heading-1",
+        "family": "Sabon LT Std",
+        "fallbacks": "Times New Roman, Times",
+        "size": "16px (1.00rem)",
+        "weight": 400,
+        "lineHeight": "1.00",
+        "spacing": null,
+        "transform": null
+      },
+      {
+        "context": "link",
+        "family": "ShipleyRegular",
+        "fallbacks": null,
+        "size": "13px (0.81rem)",
+        "weight": 400,
+        "lineHeight": "1.20",
+        "spacing": "1.95px",
+        "transform": null
+      },
+      {
+        "context": "caption",
+        "family": "Sabon LT Std",
+        "fallbacks": "Times New Roman, Times",
+        "size": "0px (0.00rem)",
+        "weight": 400,
+        "lineHeight": "NaN",
+        "spacing": "7.68px",
+        "transform": "uppercase"
+      }
+    ],
+    "sources": {
+      "googleFonts": [],
+      "adobeFonts": false,
+      "variableFonts": false
+    }
+  },
+  "spacing": {
+    "scaleType": "4px",
+    "commonValues": [
+      {
+        "px": "60px",
+        "rem": "3.75rem",
+        "count": 2,
+        "numericValue": 60
+      }
+    ]
+  },
+  "borderRadius": {
+    "values": []
+  },
+  "borders": {
+    "combinations": []
+  },
+  "shadows": [],
+  "components": {
+    "buttons": [],
+    "inputs": {
+      "text": [],
+      "checkbox": [],
+      "radio": [],
+      "select": []
+    },
+    "links": [
+      {
+        "color": "rgb(0, 0, 0)",
+        "textDecoration": "none",
+        "fontWeight": "400",
+        "states": {
+          "default": {
+            "color": "rgb(0, 0, 0)",
+            "textDecoration": "none"
+          },
+          "hover": {}
+        }
+      },
+      {
+        "color": "rgb(194, 61, 42)",
+        "textDecoration": "none",
+        "fontWeight": "400",
+        "states": {
+          "default": {
+            "color": "rgb(194, 61, 42)",
+            "textDecoration": "none"
+          },
+          "hover": {}
+        }
+      }
+    ],
+    "badges": {
+      "all": [],
+      "byVariant": {
+        "error": [],
+        "warning": [],
+        "success": [],
+        "info": [],
+        "neutral": []
+      }
+    }
+  },
+  "breakpoints": [
+    {
+      "px": "374px"
+    },
+    {
+      "px": "767px"
+    },
+    {
+      "px": "768px"
+    },
+    {
+      "px": "1024px"
+    },
+    {
+      "px": "1920px"
+    }
+  ],
+  "iconSystem": [],
+  "frameworks": []
+}

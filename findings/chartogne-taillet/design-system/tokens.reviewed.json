@@ -1,0 +1,76 @@
+{
+  "source": {
+    "url": "https://chartogne-taillet.com/en",
+    "collectedAt": "2026-06-22",
+    "notes": [
+      "Reviewed tokens combine extractor output, CSS/static bundle inspection, screenshot sampling, and runtime Vue/Three values.",
+      "Use as starter tokens only; not a full component library."
+    ]
+  },
+  "colors": {
+    "paper": "#fff5dd",
+    "paperPage": "#fdfcf5",
+    "paperBand": "#f9f6ee",
+    "paperScreenshot": "#fff8e0",
+    "ink": "#000000",
+    "pencilDarker": "#363832",
+    "pencilDark": "#585858",
+    "pencil": "#8c887d",
+    "pencilLight": "#ded5c1",
+    "accent": "#c23d2a",
+    "highlight": "#c55656",
+    "terrainGold": "#b7a768",
+    "muted": "#625e54"
+  },
+  "typography": {
+    "body": "\"Sabon LT Std\", \"Times New Roman\", Times, serif",
+    "display": "ShipleyRegular, \"Times New Roman\", Times, serif",
+    "displayItalic": "ShipleyItalic, \"Times New Roman\", Times, serif",
+    "heavyItalic": "\"SabonNext LT\", \"Times New Roman\", Times, serif"
+  },
+  "typeScale": {
+    "bodyDesktop": "1.5625rem",
+    "bodyMobile": "0.9375rem",
+    "displayLarge": "4.5rem",
+    "displayMenu": "4.5rem",
+    "displayMenuMobile": "1.875rem",
+    "smallHeading": "0.875rem",
+    "cta": "14px"
+  },
+  "letterSpacing": {
+    "displayTight": "0.15em",
+    "display": "0.2em",
+    "intro": "0.25em",
+    "wide": "0.4em"
+  },
+  "layout": {
+    "desktopRootFontSize": "0.8333333333vw",
+    "desktopRootFontSizeMax": "16px",
+    "mobileContentMaxWidth": "23.4375rem",
+    "desktopCtaInset": "3.125rem",
+    "mobileCtaInset": "1.5rem",
+    "sectionGapMobile": "4.0625rem"
+  },
+  "motion": {
+    "introTransition": "4300ms",
+    "cameraIntro": "3000ms",
+    "cameraIntroEase": "power1.inOut",
+    "cameraFocus": "2000ms",
+    "cameraFocusEase": "power2.inOut",
+    "cameraFreeEaseValue": 0.004,
+    "ctaHover": "300ms",
+    "enterHoverLetters": "450ms",
+    "panelExtend": "2000ms",
+    "panelLeave": "2500ms"
+  },
+  "camera": {
+    "fov": 65,
+    "near": 0.0025,
+    "far": 40,
+    "rotationOrder": "YXZ",
+    "introPositionStart": { "x": 1, "y": 0.5, "z": 8 },
+    "introPositionEnd": { "x": 1.7, "y": 0.88, "z": 2.2 },
+    "introRotationStart": { "x": 0, "y": 0 },
+    "introRotationEnd": { "x": -0.47, "y": 0.95 }
+  }
+}
